@@ -1,5 +1,7 @@
 name: Travis Askham
 markdown: kramdown
+kramdown:
+	input: GFM
 permalink: /blog/:year/:month/:day/:title
 
 highlighter: pygment
