@@ -1,10 +1,9 @@
 ---
-layout: blank
-banner: CV
+layout: page
 title: Curriculum Vitae
 ---
  
-A pdf version is available [here](cv.pdf).
+A pdf version is available [here](/cv/cv.pdf).
  
 
 <h4 id="education-and-qualifications">Education and Qualifications</h4>
