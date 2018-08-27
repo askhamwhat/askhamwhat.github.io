@@ -1,3 +1,2 @@
+gem 'github-pages', group: :jekyll_plugins
 gem "jekyll-theme-hydeout", "~> 3.4"
-source "https://rubygems.org"
-gemspec
