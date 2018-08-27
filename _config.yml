@@ -46,3 +46,5 @@ collections:
     output: false
   upcoming:
     output: false
+
+remote_theme: askhamwhat/hydeout
