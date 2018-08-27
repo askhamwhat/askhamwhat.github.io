@@ -1,0 +1,24 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>UW AMATH 481 Autumn 2016 Feed</title>
+    <description>Latest posts</description>
+    <link>{{ site.url_a2016amath481 }}</link>
+    {% for post in site.posts %}
+    {% if post.categories contains 'a2016amath481' %}
+      {% unless post.draft %}
+        <item>
+          <title>{{ post.title | xml_escape }}</title>
+          <description>{{ post.content | xml_escape }}</description>
+          <pubDate>{{ post.date | date_to_xmlschema }}</pubDate>
+          <link>{{ post.url | prepend: site.url }}</link>
+          <guid isPermaLink="true">{{ post.url | prepend: site.url }}</guid>
+        </item>
+      {% endunless %}
+      {% endif %}
+    {% endfor %}
+  </channel>
+</rss>

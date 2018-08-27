@@ -20,7 +20,8 @@ $root-line-height: 1.5 !default;
 $body-color: $gray-5 !default;
 $body-muted: $gray-4 !default;
 $body-bg: #fff !default;
-$link-color: $blue !default;
+//$link-color: $blue !default;
+$link-color: $cyan !default;
 $heading-color: $gray-6 !default;
 
 $border-color: $gray-2 !default;
@@ -45,7 +46,10 @@ $code-font-family: Menlo, Monaco, "Courier New", monospace !default;
 $code-color: #bf616a !default;
 
 // Hyde theming
-$sidebar-bg-color: #202020 !default;
+//$sidebar-bg-color: #202020 !default;
+$sidebar-bg-color: $yellow;
 $sidebar-title-color: #ffffff !default;
 $sidebar-sticky: true !default;
 $layout-reverse: false !default;
+
+// image

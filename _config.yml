@@ -3,11 +3,13 @@ markdown:         kramdown
 highlighter:      rouge
 
 # Setup
-title:            Hydeout
-tagline:          'A Jekyll theme'
-description:      'The <a href="http://hyde.getpoole.com" target="_blank">Hyde</a> theme for <a href="http://jekyllrb.com" target="_blank">Jekyll</a>, refreshed.'
-url:              https://fongandrew.github.io
-baseurl:          '/hydeout'
+title:            'Travis Askham'
+tagline:          ''
+description:      'Research Associate'
+department:       '<a href="https://amath.washington.edu/">Applied Math</a>'
+school: 	  '<a href="https://washington.edu">University of Washington</a>'
+url:              'https://askhamwhat.github.io'
+baseurl:          ''
                   # the optional subpath of your site, e.g. "/blog"
                   # NB: This applies to all pages in your Jekyll site.
                   # If you want to move just the blog index pages but keep
@@ -15,11 +17,11 @@ baseurl:          '/hydeout'
                   # sidebar_blog_link below.
 
 author:
-  name:           'Andrew Fong'
-  url:            https://twitter.com/fongandrewc
+  name:           'Travis Askham'
+  url:            
 
 paginate:         5
-# paginate_path:    '/page:num'
+paginate_path:    '/blog/page:num'
                     # Or '/blog/page:num' if you want to move your index pages
 
 plugins:
@@ -30,9 +32,17 @@ plugins:
 # Custom vars
 version:            3.7.1
 sidebar_home_link:  true
-# sidebar_blog_link:  '/blog'   # By default, your home page is your blog
+sidebar_blog_link:  '/blog'   # By default, your home page is your blog
                                 # page. If you change your paginate_path,
                                 # set this to the root of the paginate_path
                                 # to enable a separate blog link.
 github:
-  repo:             https://github.com/fongandrew/hydeout
+  profile: 'https://github.com/askhamwhat'
+
+googlescholarpage: 'https://scholar.google.com/citations?user=YROcY-QAAAAJ&hl=en'
+
+collections:
+  news:
+    output: false
+  upcoming:
+    output: false

@@ -9,13 +9,11 @@
       </a>
     </{% if page.layout == "index" %}h1{% else %}div{% endif %}>
     <p class="lead">{{ site.description }}</p>
+    <p class="leadsub">{{ site.department }} &bull; {{ site.school }}</p>
   </header>
   {% include sidebar-nav-links.html %}
 
-  {% if site.version %}
-    <span class="site-version">Currently v{{ site.version }}</span>
-  {% endif %}
-
   {% include sidebar-icon-links.html %}
+  <br />
   {% include copyright.html %}
 </div>

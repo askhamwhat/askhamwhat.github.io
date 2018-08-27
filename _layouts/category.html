@@ -6,16 +6,30 @@ layout: page
   {{ content }}
 {% endunless %}
 
-<ul class="posts-list">
+<section class="related">
   {% assign category = page.category | default: page.title %}
-  {% for post in site.categories[category] %}
+  {% if site.categories[category] != null %}
+  <hr />
+  <h3>Related Posts</h3>
+  
+<ul class="posts-list">
+
+  {% for post in site.categories[category] limit:5 %}
+  
     <li>
-      <h3>
+      <h4>
         <a href="{{ site.baseurl }}{{ post.url }}">
           {{ post.title }}
           <small>{{ post.date | date_to_string }}</small>
         </a>
-      </h3>
+      </h4>
     </li>
   {% endfor %}
 </ul>
+{% if  site.categories[category].size > 5 %}
+Show the 5 most recent posts. All posts
+can be found <a href="{{ site.baseurl }}/category/{{ page.category }}/all/">
+  here</a>.
+{% endif %}
+{% endif %}
+</section>

@@ -1,0 +1,16 @@
+
+<ul class="posts">
+
+  {% assign numshow = include.numshow %}
+  {% assign numshow = numshow | plus: 0 %}
+  {% assign tag = include.tag %}
+  {% for post in site.tags[tag] limit:numshow %}
+  <li><span>{{ post.date | date_to_string }}</span> » 
+    <a href="{{ post.url }}#post" title="{{ post.title }}">
+      {{ post.title }}</a></li>
+  {% endfor %}
+</ul>
+{% if site.tags[tag].size > numshow %}
+Showing the {{ numshow }} most recent posts. All posts can be
+found <a href="/tags.html#{{ tag | slugify }}">here</a>.
+{% endif %}
