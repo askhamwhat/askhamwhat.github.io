@@ -1,5 +1,6 @@
 ---
-layout: page
+layout: blank
+banner: CV
 title: Curriculum Vitae
 ---
  
@@ -230,7 +231,16 @@ A pdf version is available [here](cv.pdf).
 <table class="table-hover">
 <tbody>
 <tr class="odd">
-<td align="left"><span><em>Journal of Computational Physics</em></span>, <span><em>SIAM Scientific Computing</em></span>, <span><em>Advances in Computational Mathematics</em></span>, <span><em>Complexity</em></span></td>
+<td align="left"><span><em>Journal of Computational Physics</em></span></td>
+</tr>
+<tr class="even">
+<td align="left"><span><em>SIAM Scientific Computing</em></span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span><em>Advances in Computational Mathematics</em></span></td>
+</tr>
+<tr class="even">
+<td align="left"><span><em>Complexity</em></span></td>
 </tr>
 </tbody>
 </table>
