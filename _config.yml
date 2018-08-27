@@ -47,4 +47,4 @@ collections:
   upcoming:
     output: false
 
-remote_theme: askhamwhat/hydeout
+remote_theme: fongandrew/hydeout
