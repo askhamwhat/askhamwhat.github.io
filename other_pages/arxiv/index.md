@@ -1,7 +1,7 @@
 ---
 layout: page
 title: arXiv Feed
-parmalink: /arxiv/
+permalink: /arxiv/
 ---
 
 {% include arxiv.html %}

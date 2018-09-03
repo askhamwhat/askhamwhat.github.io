@@ -1,9 +1,10 @@
 
 News:
 <ul>
-{% for event in site.news %}
-<li> {{ event.content }} </li>
-{% endfor %}
+  {% for event in site.news %}
+  <li> {{ event.content | markdownify }} </li>
+  {% endfor %}  
 </ul>
+
 
 
