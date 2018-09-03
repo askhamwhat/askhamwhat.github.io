@@ -18,6 +18,6 @@ there is a simple trick --- essentially, adding a linear
 function to your unknown --- which allows you to use
 the same solver to solve the same ODE with general Dirichlet
 boundary conditions. You can find a write up and example
-code for this [here](/teaching/courses/uw-amath-481-a-2016/resources/odetrick.zip). Note that the example code will require your
+code for this [here](/assets/courses/uw-amath-481-a-2016/odetrick.zip). Note that the example code will require your
 matrix and right hand side builders from the
 project to run.

@@ -27,4 +27,4 @@ ones.
 
 {% include youtube.html youtube_id="7J4JUkNXQm4" %}
 
-You can download homework 2 [here](/teaching/courses/uw-amath-481-a-2016/resources/hw2.zip).
+You can download homework 2 [here](/assets/courses/uw-amath-481-a-2016/hw2.zip).
