@@ -2,6 +2,7 @@
 layout: category
 title: Software
 category: software
+sidebar_sort_order: 2
 ---
 
 <br />

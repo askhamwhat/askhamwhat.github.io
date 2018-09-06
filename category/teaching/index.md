@@ -2,6 +2,7 @@
 layout: category
 title: Teaching
 category: teaching
+sidebar_sort_order: 3
 ---
 
 I'm currently not teaching any courses.

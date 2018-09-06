@@ -16,17 +16,17 @@ posted here.
 
 Due dates:
 
-- [The project](/blog/2016/11/02/amath-481-proj-1#post)
+- [The project]({{ site.baseurl }}{% post_url /a2016-amath-481/2016-11-02-amath-481-proj-1 %}#post)
 is due 12/9.
-- [Homework 4](/blog/2016/11/29/amath481-hw-4#post)
+- [Homework 4]({{ site.baseurl }}{% post_url /a2016-amath-481/2016-11-29-amath481-hw-4 %}#post)
 is due 12/11.
-- [Homework 3](/blog/2016/11/13/amath481-hw-3#post)
+- [Homework 3]({{ site.baseurl }}{% post_url /a2016-amath-481/2016-11-13-amath481-hw-3 %}#post)
 is due 11/23.
-- [Homework 2](/blog/2016/10/25/amath481-hw-2#post)
+- [Homework 2]({{ site.baseurl }}{% post_url /a2016-amath-481/2016-10-25-amath481-hw-2 %}#post)
 is due 11/5.
-- [Homework 1](/blog/2016/10/10/amath481-hw-1#post) 
+- [Homework 1]({{ site.baseurl }}{% post_url /a2016-amath-481/2016-10-10-amath481-hw-1 %}#post) 
 is due 10/21.
-- [Homework 0](/blog/2016/09/26/amath481-hw-0#post)
+- [Homework 0]({{ site.baseurl }}{% post_url /a2016-amath-481/2016-09-26-amath481-hw-0 %}#post)
 is due 10/7.
 
 ### Description

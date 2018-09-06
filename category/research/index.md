@@ -2,6 +2,7 @@
 layout: category
 title: Research
 category: research
+sidebar_sort_order: 1
 ---
 
 I work primarily in the field of scientific
