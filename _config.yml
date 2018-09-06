@@ -46,6 +46,6 @@ collections:
     output: false
   upcoming:
     output: false
-  research:
+  publications:
     output: true
     permalink: /:collection/:name

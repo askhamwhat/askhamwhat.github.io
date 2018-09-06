@@ -7,7 +7,7 @@ permalink: /thesis-errata
 category: research
 ---
 Lamentably this post records known errors
-in my [thesis](/assets/papers/2016/thesis.pdf).
+in my [thesis](/assets/publications/pdf/askham2016integral.pdf).
 
 - The error bounds for the local contribution of
 the integral in the "heuristic" discussion of section

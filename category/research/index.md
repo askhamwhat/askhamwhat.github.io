@@ -12,16 +12,44 @@ to improve the software and algorithms available
 for the computer-aided design of modern devices,
 control systems, and therapeutics.
 
-This page is still under construction...
-
 ### Integral equation methods for PDEs
+
+An integral equation method utilizes either an
+exact or approximate inverse of a partial differential
+equation to analytically precondition the problem
+before it is discretized on a computer.
+Such an approach results in high-order-accurate, robust,
+and fast solvers for a range of PDEs. Research in
+this area is focused on (1) expanding the number of
+PDEs for which integral equation methods apply
+(e.g. by developing new integral representations),
+(2) developing quadrature rules to numerically
+evaluate the necessary singular integrals in
+the method, and (3) the fast solution of the
+(typically) dense linear systems that result.
 
 My Ph.D. thesis focused on integral-equation methods
 for the solution of inhomogeneous elliptic partial
 differential equations in complex geometry. It can be
-downloaded [here](/assets/papers/thesis.pdf).
-Known [errata](/thesis-errata).
+downloaded [here](/assets/publications/pdf/askham2016integral.pdf),
+with known errata [here](/thesis-errata).
 
+{% for pub in site.publications %}
+{% if pub.research_area == "inteq" and pub.featured == true %}
+{% assign foundinteq = 1 %}
+{% endif %}
+{% endfor %}
+
+{% if foundinteq %}
+Featured publications:
+<ul>
+{% for pub in site.publications %}
+{% if pub.research_area == "inteq" and pub.featured == true %}
+   <li> <a href="{{ pub.url }}">{% if pub.title-short %}{{ pub.title-short }}{% else %}{{ pub.title }}{% endif %}</a> </li>
+{% endif %}   
+{% endfor %}
+</ul>
+{% endif %}
 
 ### Reduced order modeling
 
@@ -42,23 +70,19 @@ This reduced basis can then be used to design
 an approximately optimal control system or
 to perform short term future-state prediction.
 
-### Optimization methods
+{% for pub in site.publications %}
+{% if pub.research_area == "ROM" and pub.featured == true %}
+{% assign foundROM = 1 %}
+{% endif %}
+{% endfor %}
 
-### Collaborators
-
-Frequent collaborators and co-authors:
-
-- [Sasha Aravkin](https://uw-amo.github.io/saravkin/)
-- [Steven L Brunton](https://www.eigensteve.com/)
-- [Leslie Greengard](https://www.math.nyu.edu/faculty/greengar/)
-- [Ludvig af Klinteberg](https://scholar.google.se/citations?user=sgfOEVYAAAAJ&hl=sv)
-- [J Nathan Kutz](http://faculty.washington.edu/kutz/)
-- [Manas Rachh](https://gauss.math.yale.edu/~mr2245/)
-- [Peng Zheng](https://amath.washington.edu/people/peng-zheng)
-
-### Graduate Students
-
-Co-mentored at the University of Washington:
-
-- [Emily Clark](https://phys.washington.edu/people/emily-e-clark)
-- [Chang Sun](https://phys.washington.edu/people/chang-sun)
+{% if foundROM %}
+Featured publications:
+<ul>
+{% for pub in site.publications %}
+{% if pub.research_area == "ROM" and pub.featured == true %}
+   <li> <a href="{{ pub.url }}">{% if pub.title-short %}{{ pub.title-short }}{% else %}{{ pub.title }}{% endif %}</a> </li>
+{% endif %}   
+{% endfor %}
+</ul>
+{% endif %}
