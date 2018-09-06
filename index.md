@@ -11,7 +11,8 @@ Welcome! This is the personal website of Travis Askham.
 Some quick links:
 
 - My [curriculum vitae](/cv) and [contact information](/contact)
-- Latest preprints are in the [arXiv feed](/arxiv)
+- Here is a [list of publications](/publications) and the
+latest preprints are in the [arXiv feed](/arxiv)
 
 {% include news.html %}
 
