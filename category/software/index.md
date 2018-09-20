@@ -5,7 +5,7 @@ category: software
 sidebar_sort_order: 2
 ---
 
-<br />
+{% include imgcard.html imgpath="/assets/img/snail.jpg" title="Snails" imgtext="Working on those code releases..." credit="&copy; Travis Askham." %}
 
 Some of my scientific software is available
 under open source licenses on [GitHub](https://github.com/askhamwhat).
