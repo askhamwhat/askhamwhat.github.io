@@ -5,9 +5,9 @@ highlighter:      rouge
 # Setup
 title:            'Travis Askham'
 tagline:          ''
-description:      'Research Associate'
-department:       '<a href="https://amath.washington.edu/">Applied Math</a>'
-school: 	  '<a href="https://washington.edu">University of Washington</a>'
+description:      'Assistant Professor'
+department:       '<a href="https://math.njit.edu/">Mathematical Sciences</a>'
+school: 	  '<a href="https://njit.edu">NJIT</a>'
 url:              'https://askhamwhat.github.io'
 baseurl:          ''
                   # the optional subpath of your site, e.g. "/blog"

@@ -265,4 +265,22 @@ references:
     regression problems with synthetic and real data, including compressed sensing,
     LASSO, matrix completion and TV regularization. To promote reproducible research,
     we include a companion Matlab package that implements these popular applications.'
+
+- id: mangan2018model
+  type: article-journal
+  author:
+  - family: Mangan
+    given: Niall M
+  - family: Askham
+    given: Travis
+  - family: Brunton
+    given: Steven L
+  - family: Kutz
+    given: J Nathan
+  - family: Proctor
+    given: Joshua L
+  issued:
+  - year: '2018'
+  title: Model selection for hybrid dynamical systems via sparse regression
+  container-title: arXiv preprint arXiv:1808.03251
 ...

@@ -5,6 +5,8 @@ category: research
 sidebar_sort_order: 1
 ---
 
+{% include imgcard.html imgpath="/assets/img/gorilla-2.png" title="Having a Think" imgtext="Having a Think" credit="&copy; Angela Askham." %}
+
 I work primarily in the field of scientific
 computing, which broadly seeks to explore and
 understand scientific phenomena with the aid of
