@@ -5,11 +5,14 @@ category: software
 sidebar_sort_order: 2
 ---
 
-{% include imgcard.html imgpath="/assets/img/snail.jpg" title="Snails" imgtext="Working on those code releases..." credit="&copy; Travis Askham." %}
+{% include imgcard.html imgpath="/assets/img/snail.jpg" title="Working on those code releases..." imgtext="Working on those code releases..." credit="&copy; Travis Askham." %}
 
 Some of my scientific software is available
-under open source licenses on [GitHub](https://github.com/askhamwhat).
+under open source licenses on [my personal GitHub page](https://github.com/askhamwhat) and [my lab GitHub page](https://github.com/duqbo).
 
+- [mbh2dfmm](https://github.com/duqbo/mbh2dfmm) --- a Fortran
+software package for computing stable, fast sums with the
+modified biharmonic kernel. Also includes julia wrappers.
 - [optdmd](https://github.com/duqbo/optdmd) --- a 
 MATLAB software package for computing the 
 optimized dynamic mode decomposition (DMD). 
