@@ -1,10 +1,9 @@
 ---
 layout: page
 title: Curriculum Vitae
-permalink: /cv/
 ---
  
-A pdf version is available [here](/assets/cv/cv.pdf).
+A pdf version is available [here](/cv/cv.pdf).
  
 
 <h4 id="education-and-qualifications">Education and Qualifications</h4>
@@ -31,8 +30,8 @@ A pdf version is available [here](/assets/cv/cv.pdf).
 <table class="table-hover">
 <tbody>
 <tr class="odd">
-<td align="left">2016 –</td>
-<td align="left">Research Associate of Applied Mathematics, Department of Applied Mathematics, University of Washington</td>
+<td align="left">2019 –</td>
+<td align="left">Assistant Professor, Department of Mathematical Sciences, New Jersey Institute of Technology</td>
 </tr>
 </tbody>
 </table>
@@ -42,30 +41,34 @@ A pdf version is available [here](/assets/cv/cv.pdf).
 <tbody>
 <tr class="odd">
 <td align="left"><span>[1]</span></td>
-<td align="left">Travis Askham and J Nathan Kutz, Variable projection methods for an optimized dynamic mode decomposition. <em>SIAM Journal on Applied Dynamical Systems</em>, 17(1):380–416, 2018.</td>
+<td align="left">Peng Zheng, Travis Askham, Steven L Brunton, J Nathan Kutz, and Aleksandr Y Aravkin, A unified framework for sparse relaxed regularized regression: Sr3. <em>IEEE Access</em>, 7:1404–1423, 2019.</td>
 </tr>
 <tr class="even">
 <td align="left"><span>[2]</span></td>
-<td align="left">Manas Rachh and Travis Askham, Integral equation formulation of the biharmonic dirichlet problem. <em>Journal of Scientific Computing</em>, 75(2):762–781, 2018.</td>
+<td align="left">Travis Askham, A stabilized separation of variables method for the modified biharmonic equation. <em>Journal of Scientific Computing</em>, 76(3):1674–1697, 2018.</td>
 </tr>
 <tr class="odd">
 <td align="left"><span>[3]</span></td>
-<td align="left">Chang Sun, Travis Askham, and J Nathan Kutz, Stability and dynamics of microring combs: elliptic function solutions of the lugiato–lefever equation. <em>JOSA B</em>, 35(6):1341–1353, 2018.</td>
+<td align="left">Travis Askham and J Nathan Kutz, Variable projection methods for an optimized dynamic mode decomposition. <em>SIAM Journal on Applied Dynamical Systems</em>, 17(1):380–416, 2018.</td>
 </tr>
 <tr class="even">
 <td align="left"><span>[4]</span></td>
-<td align="left">Travis Askham, A stabilized separation of variables method for the modified biharmonic equation. <em>Journal of Scientific Computing</em>, pages 1–24, 2017.</td>
+<td align="left">Manas Rachh and Travis Askham, Integral equation formulation of the biharmonic dirichlet problem. <em>Journal of Scientific Computing</em>, 75(2):762–781, 2018.</td>
 </tr>
 <tr class="odd">
 <td align="left"><span>[5]</span></td>
-<td align="left">Travis Askham and Antoine J Cerfon, An adaptive fast multipole accelerated poisson solver for complex geometries. <em>Journal of Computational Physics</em>, 344:1–22, 2017.</td>
+<td align="left">Chang Sun, Travis Askham, and J Nathan Kutz, Stability and dynamics of microring combs: elliptic function solutions of the lugiato–lefever equation. <em>JOSA B</em>, 35(6):1341–1353, 2018.</td>
 </tr>
 <tr class="even">
 <td align="left"><span>[6]</span></td>
-<td align="left">Travis Askham, <em>Integral-equation methods for inhomogeneous elliptic partial differential equations in complex geometry</em>. Ph.D. thesis, New York University, 2016.</td>
+<td align="left">Travis Askham and Antoine J Cerfon, An adaptive fast multipole accelerated poisson solver for complex geometries. <em>Journal of Computational Physics</em>, 344:1–22, 2017.</td>
 </tr>
 <tr class="odd">
 <td align="left"><span>[7]</span></td>
+<td align="left">Travis Askham, <em>Integral-equation methods for inhomogeneous elliptic partial differential equations in complex geometry</em>. Ph.D. thesis, New York University, 2016.</td>
+</tr>
+<tr class="even">
+<td align="left"><span>[8]</span></td>
 <td align="left">Travis Askham and Leslie Greengard, Norm-preserving discretization of integral equations for elliptic pdes with internal layers i: the one-dimensional case. <em>SIAM Review</em>, 56(4):625–641, 2014.</td>
 </tr>
 </tbody>
@@ -79,7 +82,7 @@ A pdf version is available [here](/assets/cv/cv.pdf).
 </tr>
 <tr class="even">
 <td align="left"><span>[2]</span></td>
-<td align="left">Peng Zheng, Travis Askham, Stephen L Brunton, J Nathan Kutz, and Aleksandr Y Aravkin, Sparse relaxed regularized regression: Sr3. <em>arXiv preprint arXiv:1807.05411</em>, 2018.</td>
+<td align="left">Niall M Mangan, Travis Askham, Steven L Brunton, J Nathan Kutz, and Joshua L Proctor, Model selection for hybrid dynamical systems via sparse regression. <em>arXiv preprint arXiv:1808.03251</em>, 2018.</td>
 </tr>
 <tr class="odd">
 <td align="left"><span>[3]</span></td>
@@ -140,6 +143,10 @@ A pdf version is available [here](/assets/cv/cv.pdf).
 <table class="table-hover">
 <tbody>
 <tr class="odd">
+<td align="left">2016–2018</td>
+<td align="left">Research Associate, Department of Applied Mathematics, University of Washington. Principal Investigator: J. Nathan Kutz. Project: Sparse measurements and optimal sensor placement for classification and state estimation of complex systems</td>
+</tr>
+<tr class="even">
 <td align="left">2012–2015</td>
 <td align="left">Research Assistant, Courant Institute of Mathematical Sciences, New York University. Principal Investigator: Leslie Greengard. Project: Novel methods for electromagnetic simulation and design</td>
 </tr>
@@ -231,16 +238,24 @@ A pdf version is available [here](/assets/cv/cv.pdf).
 <table class="table-hover">
 <tbody>
 <tr class="odd">
+<td align="left">Elsevier</td>
 <td align="left"><span><em>Journal of Computational Physics</em></span></td>
 </tr>
 <tr class="even">
-<td align="left"><span><em>SIAM Scientific Computing</em></span></td>
+<td align="left">SIAM</td>
+<td align="left"><span><em>Scientific Computing (SISC)</em></span>, <span><em>Applied Dynamical Systems (SIADS)</em></span></td>
 </tr>
 <tr class="odd">
+<td align="left">Springer</td>
 <td align="left"><span><em>Advances in Computational Mathematics</em></span></td>
 </tr>
 <tr class="even">
-<td align="left"><span><em>Complexity</em></span></td>
+<td align="left">Wiley</td>
+<td align="left"><span><em>Complexity</em></span> (Hindawi)</td>
+</tr>
+<tr class="odd">
+<td align="left">IEEE</td>
+<td align="left"><span><em>Transactions on Automatic Control (IEEE-TAC)</em></span></td>
 </tr>
 </tbody>
 </table>
@@ -262,6 +277,10 @@ A pdf version is available [here](/assets/cv/cv.pdf).
 <tr class="even">
 <td align="left"><code>RobustDMD</code></td>
 <td align="left">A julia package for fitting exponential functions to data with robust penalties (available under the MIT license, github.com/UW-AMO/RobustDMD.jl)</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>mbh2dfmm</code></td>
+<td align="left">A Fortran package for stably computing fast sums of the modified biharmonic Green’s function and modified Stokes kernels (available under a modified freeBSD license, github.com/duqbo/mbh2dfmm)</td>
 </tr>
 </tbody>
 </table>
