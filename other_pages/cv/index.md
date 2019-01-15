@@ -1,9 +1,10 @@
 ---
 layout: page
 title: Curriculum Vitae
+permalink: /cv/
 ---
  
-A pdf version is available [here](/cv/cv.pdf).
+A pdf version is available [here](/assets/cv/cv.pdf).
  
 
 <h4 id="education-and-qualifications">Education and Qualifications</h4>
