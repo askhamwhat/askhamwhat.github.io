@@ -89,3 +89,24 @@ Featured publications:
 {% endfor %}
 </ul>
 {% endif %}
+
+### Optimization methods
+
+
+
+{% for pub in site.publications %}
+{% if pub.research_area == "optimization" and pub.featured == true %}
+{% assign foundoptimization = 1 %}
+{% endif %}
+{% endfor %}
+
+{% if foundoptimization %}
+Featured publications:
+<ul>
+{% for pub in site.publications %}
+{% if pub.research_area == "optimization" and pub.featured == true %}
+   <li> <a href="{{ pub.url }}">{% if pub.title-short %}{{ pub.title-short }}{% else %}{{ pub.title }}{% endif %}</a> </li>
+{% endif %}   
+{% endfor %}
+</ul>
+{% endif %}

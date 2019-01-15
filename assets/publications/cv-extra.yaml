@@ -19,4 +19,7 @@ askham2017stabilized:
   featured: true
 mangan2018model:
   research_area: ROM
+zheng2019unified:
+  research_area: optimization
+  featured: true
 ...
