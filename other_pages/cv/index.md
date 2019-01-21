@@ -122,7 +122,7 @@ A pdf version is available [here](/assets/cv/cv.pdf).
 <table class="table-hover">
 <tbody>
 <tr class="odd">
-<td align="left">Scientific Computing (<span><strong>Instructor</strong></span>, AMATH 481, 38 students)</td>
+<td align="left">Scientific Computing (Instructor, AMATH 481, 38 students)</td>
 </tr>
 </tbody>
 </table>
