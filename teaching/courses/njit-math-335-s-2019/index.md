@@ -5,7 +5,7 @@ title: NJIT MATH 335-002 (Spring 2019)
 
 {% include imgcard.html imgpath="/assets/img/highlander_logo.svg" title="NJIT Logo" imgtext="NJIT New Jersey's Science and Technology University" credit="&copy; New Jersey Institute of Technology." %}
 
-Course description can be found ADD LINK HERE.
+Course description can be found [here](https://m.njit.edu/Undergraduate/Course_Syllabi/Spring2019/Math_335-SP19.html).
 
 #### Instruction
 
