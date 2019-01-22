@@ -12,7 +12,7 @@ Course description can be found ADD LINK HERE.
 Instructor: Travis Askham
 
 - Email: [my last name] [at] [njit] [dot] [edu]
-- Lectures: TR 10:00-11:20am, Kupfrian Hall 108.
+- Lectures: TR 10:00-11:20am, Electrical and Computer Engineering Center (ECEC) 115.
 - Office Hours: TBD
 
 #### Important Dates
