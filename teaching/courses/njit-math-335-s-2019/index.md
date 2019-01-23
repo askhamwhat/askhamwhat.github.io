@@ -13,7 +13,7 @@ Instructor: Travis Askham
 
 - Email: [my last name] [at] [njit] [dot] [edu]
 - Lectures: TR 10:00-11:20am, Electrical and Computer Engineering Center (ECEC) 115.
-- Office Hours: TBD
+- Office Hours: T 9-10am, R 11:20am-12:20pm
 
 #### Important Dates
 
