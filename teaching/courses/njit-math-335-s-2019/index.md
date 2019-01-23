@@ -38,6 +38,10 @@ Exams
 
 #### Exams
 
+#### Notes
+
+- [January 22nd](/assets/courses/njit-math-335-s-2019/notes/20190122.pdf)
+
 #### Supplementary Learning
 
 If you would like to reinforce your learning
