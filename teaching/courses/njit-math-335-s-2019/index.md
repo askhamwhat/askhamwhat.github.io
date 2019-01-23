@@ -36,6 +36,9 @@ Exams
 	
 #### Homework
 
+- Homework 1 [pdf](/assets/courses/njit-math-335-s-2019/hw/hw1.pdf)
+[TeX source](/assets/courses/njit-math-335-s-2019/hw/hw1source.zip)
+
 #### Exams
 
 #### Notes
