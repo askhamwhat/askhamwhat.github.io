@@ -22,12 +22,13 @@ for dates relevant to dropping the course.
 
 General 
 - First day of class: January 22nd
+- Classes cancelled: February 12th
 - Substitute professor (attendance taken): February 28th
 - Spring recess: March 17th-24th
 - No class (Friday schedule): May 7th
 
 Exams
-- Midterm 1: February 14th
+- Midterm 1: ~~February 14th~~ February 19th
 - Quiz 1: March 7th
 - Midterm 2: March 28th
 - Quiz 2: April 18th
@@ -63,14 +64,15 @@ by reading another text on the subject, consider
 |1/31| 2.2 | Line Integrals |
 |2/5| 2.3 – 2.4 | Surface and Volume Integrals with Examples |
 |2/7|  3.1 – 3.2 | Partial Differentiation, Taylor Series and Gradients |
-|2/12| 3.3 | Divergence + REVIEW for EXAM I |
-|2/14|  | EXAM I | 
-|2/19| 3.3 – 3.4 | Divergence, Laplacian and Curl |
-|2/21| 4.1 – 4.3 | Suffix Notation, Kronecker Delta and Alternating Tensor |
-|2/26| 4.4 – 4.7 | Relations Among and Properties of Vector and Tensor Operations |
-|2/28| 5.1 | Gauss’ Divergence Theorem and Applications |
-|3/5| 5.2 | Stokes’ Theorem and Applications |
-|3/7, 3/12, 3/14| Notes | More on Gauss’ and Stokes’ Theorems |
+|2/12|  | CANCELLED - WEATHER |
+|2/14| 3.3 | Divergence + REVIEW for EXAM I |
+|2/19|  | EXAM I | 
+|2/21| 3.3 – 3.4 | Divergence, Laplacian and Curl |
+|2/26| 4.1 – 4.3 | Suffix Notation, Kronecker Delta and Alternating Tensor |
+|2/28| 4.4 – 4.7 | Relations Among and Properties of Vector and Tensor Operations |
+|3/5| 5.1 | Gauss’ Divergence Theorem and Applications |
+|3/7| 5.2 | Stokes’ Theorem and Applications |
+|3/12, 3/14| Notes | More on Gauss’ and Stokes’ Theorems |
 |3/17 - 3/24| | SPRING BREAK |
 |3/26| 6.1 | Curvilinear Coordinates + REVIEW for EXAM II |
 |3/28| | EXAM II |
