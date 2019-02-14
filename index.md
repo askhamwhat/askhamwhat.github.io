@@ -4,7 +4,7 @@ title:
 ---
 
 
-![](/assets/img/dl60gray.svg "Second Kind Integral Equation")
+![](/assets/img/dl-thin-60gray.svg "Second Kind Integral Equation")
 
 Welcome! This is the personal website of Travis Askham.
 
