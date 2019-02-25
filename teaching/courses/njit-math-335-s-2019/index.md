@@ -41,6 +41,8 @@ Exams
 ([TeX source](/assets/courses/njit-math-335-s-2019/hw/hw1source.zip), [solutions](/assets/courses/njit-math-335-s-2019/hw/soln-hw1.pdf))
 - Homework 2: [pdf](/assets/courses/njit-math-335-s-2019/hw/hw2.pdf)
 ([TeX source](/assets/courses/njit-math-335-s-2019/hw/hw2source.zip), [solutions](/assets/courses/njit-math-335-s-2019/hw/soln-hw2.pdf))
+- Homework 3: [pdf](/assets/courses/njit-math-335-s-2019/hw/hw3.pdf)
+([TeX source](/assets/courses/njit-math-335-s-2019/hw/hw3source.zip), [solutions](/assets/courses/njit-math-335-s-2019/hw/soln-hw3.pdf))
 
 #### Exams
 
