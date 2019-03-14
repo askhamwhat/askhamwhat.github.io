@@ -46,6 +46,11 @@ Exams
 - Homework 4: [pdf](/assets/courses/njit-math-335-s-2019/hw/hw4.pdf)
 ([TeX source](/assets/courses/njit-math-335-s-2019/hw/hw4source.zip), [solutions](/assets/courses/njit-math-335-s-2019/hw/soln-hw4.pdf))
 
+#### Quizzes
+
+- Quiz 1: [pdf](/assets/courses/njit-math-335-s-2019/quiz/quiz1.pdf)
+([solutions](/assets/courses/njit-math-335-s-2019/quiz/soln-quiz1.pdf))
+
 #### Exams
 
 - Practice Midterm Exam I: [pdf](/assets/courses/njit-math-335-s-2019/exams/practice-exam1.pdf) ([solutions](/assets/courses/njit-math-335-s-2019/exams/soln-practice-exam1.pdf))
@@ -53,7 +58,8 @@ Exams
 
 #### Notes
 
-- [January 22nd](/assets/courses/njit-math-335-s-2019/notes/20190122.pdf)
+- [January 22nd (Parametric vs Implicit Description of a Plane)](/assets/courses/njit-math-335-s-2019/notes/20190122.pdf)
+- [March 14th (Electrostatics and the Fundamental Theorem)](/assets/courses/njit-math-335-s-2019/notes/20190312.pdf)
 
 #### Supplementary Learning
 
