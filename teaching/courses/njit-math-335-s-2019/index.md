@@ -56,7 +56,7 @@ Exams
 - Practice Midterm Exam I: [pdf](/assets/courses/njit-math-335-s-2019/exams/practice-exam1.pdf) ([solutions](/assets/courses/njit-math-335-s-2019/exams/soln-practice-exam1.pdf))
 - Midterm Exam I: [pdf](/assets/courses/njit-math-335-s-2019/exams/exam1.pdf) ([solutions](/assets/courses/njit-math-335-s-2019/exams/soln-exam1.pdf))
 - Practice Midterm Exam II: [pdf](/assets/courses/njit-math-335-s-2019/exams/practice-exam2.pdf) ([solutions](/assets/courses/njit-math-335-s-2019/exams/soln-practice-exam2.pdf))
-
+  
 #### Notes
 
 - [January 22nd (Parametric vs Implicit Description of a Plane)](/assets/courses/njit-math-335-s-2019/notes/20190122.pdf)
