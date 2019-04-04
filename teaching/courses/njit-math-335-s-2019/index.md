@@ -56,6 +56,7 @@ Exams
 - Practice Midterm Exam I: [pdf](/assets/courses/njit-math-335-s-2019/exams/practice-exam1.pdf) ([solutions](/assets/courses/njit-math-335-s-2019/exams/soln-practice-exam1.pdf))
 - Midterm Exam I: [pdf](/assets/courses/njit-math-335-s-2019/exams/exam1.pdf) ([solutions](/assets/courses/njit-math-335-s-2019/exams/soln-exam1.pdf))
 - Practice Midterm Exam II: [pdf](/assets/courses/njit-math-335-s-2019/exams/practice-exam2.pdf) ([solutions](/assets/courses/njit-math-335-s-2019/exams/soln-practice-exam2.pdf))
+- Midterm Exam II: [pdf](/assets/courses/njit-math-335-s-2019/exams/exam2.pdf) ([solutions](/assets/courses/njit-math-335-s-2019/exams/soln-exam2.pdf))
   
 #### Notes
 
