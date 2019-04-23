@@ -47,6 +47,8 @@ Exams
 ([TeX source](/assets/courses/njit-math-335-s-2019/hw/hw4source.zip), [solutions](/assets/courses/njit-math-335-s-2019/hw/soln-hw4.pdf))
 - Homework 5: [pdf](/assets/courses/njit-math-335-s-2019/hw/hw5.pdf)
 ([TeX source](/assets/courses/njit-math-335-s-2019/hw/hw5source.zip), [solutions](/assets/courses/njit-math-335-s-2019/hw/soln-hw5.pdf))
+- Homework 6: [pdf](/assets/courses/njit-math-335-s-2019/hw/hw6.pdf)
+([TeX source](/assets/courses/njit-math-335-s-2019/hw/hw6source.zip), [solutions](/assets/courses/njit-math-335-s-2019/hw/soln-hw6.pdf))
 
 #### Quizzes
 
