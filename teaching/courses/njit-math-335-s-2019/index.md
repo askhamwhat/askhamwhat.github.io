@@ -54,6 +54,8 @@ Exams
 
 - Quiz 1: [pdf](/assets/courses/njit-math-335-s-2019/quiz/quiz1.pdf)
 ([solutions](/assets/courses/njit-math-335-s-2019/quiz/soln-quiz1.pdf))
+- Quiz 2: [pdf](/assets/courses/njit-math-335-s-2019/quiz/quiz2.pdf)
+([solutions](/assets/courses/njit-math-335-s-2019/quiz/soln-quiz2.pdf))
 
 #### Exams
 
