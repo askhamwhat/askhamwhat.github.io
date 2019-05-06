@@ -102,9 +102,8 @@ by reading another text on the subject, consider
 |4/4| 6.3 – 6.4 | Examples in Cylindrical and Spherical Coordinates |
 |4/9| 7.1 – 7.2 | Tensors |
 |4/16| 7.3 | Tensors and Applications |
-|4/18| Notes | Tensors and Applications |
-|4/23| 7.4 | Physical Applications of Tensors | 
-|4/25| 8.1 – 8.2 | Applications – Heat Transfer and Electromagnetics |
-|4/30| 8.3 – 8.4 | Continuum Mechanics and Stress Tensor |
-|5/2| 8.5 | Fluid Mechanics |
-|5/7| | REVIEW FOR FINAL EXAM
+|4/18| 7.4 | Physical Applications of Tensors | 
+|4/23| 8.1 – 8.2 | Applications – Heat Transfer and Electromagnetics |
+|4/25| 8.3 – 8.4 | Continuum Mechanics and Stress Tensor |
+|4/30| 8.5 | Fluid Mechanics |
+|5/2| | REVIEW FOR FINAL EXAM
