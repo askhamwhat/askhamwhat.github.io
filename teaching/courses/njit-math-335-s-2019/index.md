@@ -9,7 +9,7 @@ Course description can be found [here](https://m.njit.edu/Undergraduate/Course_S
 
 #### Instruction
 
-Instructor: Travis Askham
+Instructor: Travis Askham 
 
 - Email: [my last name] [at] [njit] [dot] [edu]
 - Lectures: TR 10:00-11:20am, Electrical and Computer Engineering Center (ECEC) 115.
