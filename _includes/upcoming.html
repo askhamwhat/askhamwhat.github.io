@@ -1,7 +1,11 @@
 
 Upcoming events:
 <ul>
-{% for event in site.upcoming %}
-<li> {{ event.content }} </li>
-{% endfor %}
+  {% for event in site.upcoming %}
+  {% assign today_date = 'now' | date: '%s' %}
+  {% assign expiry_date = event.expiry | date: '%s' %}
+  {% if today_date < expiry_date %}
+  <li> {{ event.content | markdownify }} </li>
+  {% endif %}
+  {% endfor %}
 </ul>

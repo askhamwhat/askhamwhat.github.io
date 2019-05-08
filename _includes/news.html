@@ -2,7 +2,11 @@
 News:
 <ul>
   {% for event in site.news %}
-  <li> {{ event.content | markdownify }} </li>
+  {% assign today_date = 'now' | date: '%s' %}
+  {% assign expiry_date = event.expiry | date: '%s' %}
+  {% if today_date < expiry_date %}
+		     <li> {{ event.content | markdownify }} </li>
+  {% endif %}
   {% endfor %}  
 </ul>
 
