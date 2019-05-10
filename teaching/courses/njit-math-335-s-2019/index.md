@@ -19,7 +19,7 @@ Instructor: Travis Askham
 
 See the [NJIT Academic Calendar](https://www.njit.edu/registrar/spring-2019-academic-calendar/)
 for dates relevant to dropping the course.
-
+ 
 General 
 - First day of class: January 22nd
 - Classes cancelled: February 12th
