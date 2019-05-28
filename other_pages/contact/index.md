@@ -6,6 +6,6 @@ permalink: /contact/
 
 <br />
 
-- Email address: \[ my last name \] \[ at \] uw \[ dot \] \[ edu \]
+- Email address: \[ my last name \] \[ at \] njit \[ dot \] \[ edu \]
 - Office hours: by appointment
-- Location: Lewis Hall
+- Location: Cullimore Hall 508
