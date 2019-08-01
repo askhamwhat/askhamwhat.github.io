@@ -1,5 +1,15 @@
-
+{% assign notfound = 1 %}
+{% for event in site.news %}
+{% assign today_date = 'now' | date: '%s' %}
+{% assign expiry_date = event.expiry | date: '%s' %}
+{% if today_date < expiry_date %}
+{% if notfound %}
+{% assign notfound = 0 %}
 News:
+{% endif %}
+{% endif %}
+{% endfor %}
+
 <ul>
   {% for event in site.news %}
   {% assign today_date = 'now' | date: '%s' %}

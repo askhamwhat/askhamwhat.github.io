@@ -12,7 +12,7 @@ Course description can be found [here](https://m.njit.edu/Graduate/Course_Syllab
 Instructor: Travis Askham 
 
 - Email: [my last name] [at] [njit] [dot] [edu]
-- Lectures: MW 10:00-11:20am, location TBD.
+- Lectures: MW 10:00-11:20am, KUPF 103.
 - Office Hours: TBD in Cullimore Hall 508
 
 #### Important Dates
