@@ -5,7 +5,7 @@ title: NJIT MATH 631-001 (Fall 2019)
 
 {% include imgcard.html imgpath="/assets/img/highlander_logo.svg" title="NJIT Logo" imgtext="NJIT New Jersey's Science and Technology University" credit="&copy; New Jersey Institute of Technology." %}
 
-Course description can be found [here](https://m.njit.edu/Graduate/Course_Syllabi/Fall2019/Math_631-FA19.html).
+Brief course description can be found [here](syllabus.pdf).
 
 #### Instruction
 
