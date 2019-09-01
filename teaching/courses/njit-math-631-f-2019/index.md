@@ -27,3 +27,7 @@ Exams
 	
 #### Homework
 
+Homework will be turned in on Canvas (https://canvas.njit.edu), where
+you will also find solutions. Assignment PDFs will be posted on Canvas and
+below.
+
