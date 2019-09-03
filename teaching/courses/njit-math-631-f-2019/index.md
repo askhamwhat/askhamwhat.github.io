@@ -24,6 +24,9 @@ Exams
 - Midterm: October 28th
 - Final exam week: December 14th-20th
 
+#### Resources
+
+- Previous qualifying exams are [here](https://math.njit.edu/students/graduate/past_qual_exams.php)
 	
 #### Homework
 
