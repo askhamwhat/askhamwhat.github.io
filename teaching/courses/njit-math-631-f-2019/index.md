@@ -17,7 +17,7 @@ Instructor: Travis Askham
 
 #### Important Dates
 
-See the [NJIT Academic Calendar](https://www.njit.edu/registrar/spring-2019-academic-calendar/)
+See the [NJIT Academic Calendar](https://www.njit.edu/registrar/calendars/)
 for dates relevant to dropping the course.
  
 Exams
