@@ -22,4 +22,8 @@ mangan2018model:
 zheng2019unified:
   research_area: optimization
   featured: true
+af2020fast:
+  research_area: inteq
+  featured: true
+  title-short: FIEM for Navier Stokes
 ...

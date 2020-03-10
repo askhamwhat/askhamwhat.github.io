@@ -273,4 +273,40 @@ references:
   - year: '2018'
   title: Model selection for hybrid dynamical systems via sparse regression
   container-title: arXiv preprint arXiv:1808.03251
+
+- id: af2020fast
+  type: article-journal
+  author:
+  - family: Klinteberg
+    given: Ludvig
+    dropping-particle: af
+  - family: Askham
+    given: Travis
+  - family: Kropinski
+    given: Mary Catherine
+  issued:
+  - year: '2020'
+  title: A fast integral equation method for the two-dimensional navier-stokes equations
+  container-title: Journal of Computational Physics
+  publisher: Academic Press
+  page: '109353'
+  DOI: 10.1016/j.jcp.2020.109353
+
+- id: askham2020boundary
+  type: article-journal
+  author:
+  - family: Askham
+    given: Travis
+  - family: Rachh
+    given: Manas
+  issued:
+  - year: '2020'
+  title: A boundary integral equation approach to computing eigenvalues of the stokes
+    operator
+  container-title: Advances in Computational Mathematics
+  publisher: Springer US
+  page: '1-42'
+  volume: '46'
+  issue: '2'
+  DOI: 10.1007/s10444-020-09774-2
 ...
