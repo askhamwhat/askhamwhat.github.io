@@ -119,6 +119,17 @@ select:disabled{opacity:.45;cursor:not-allowed}
 [data-set="x5"][aria-pressed="true"],[data-set="x10"][aria-pressed="true"]{background:var(--green);border-color:var(--green)}
 [data-set="foryou"][aria-pressed="true"]{background:var(--orange);border-color:var(--orange)}
 
+/* lives in the operations row, styled as a pill; id beats .sets rules on colour */
+#nextTrophyBtn{
+  font-family:var(--sans);font-weight:700;font-size:13px;line-height:1;
+  padding:9px 14px;border:2px solid var(--rule);border-radius:999px;
+  background:var(--card);color:var(--ink-soft);cursor:pointer;
+  transition:background .12s,color .12s;
+}
+#nextTrophyBtn:hover{background:#F0F5FF;color:var(--ink)}
+#nextTrophyBtn[aria-pressed="true"]{background:var(--yellow);border-color:#E0A800;color:var(--ink)}
+#nextTrophyBtn[aria-pressed="true"]:hover{background:#FFD44F}
+
 .setnote{font-size:12.5px;color:var(--ink-soft);margin:0 0 18px;min-height:1.2em}
 .setnote.warn{color:var(--red)}
 
@@ -310,6 +321,7 @@ table.grid td{padding:0}
   .modes button{padding:8px 11px;font-size:18px}
   .modes button.wordy{font-size:12px}
   .sets button{padding:8px 11px;font-size:12px}
+  #nextTrophyBtn{padding:8px 11px;font-size:12px}
   #whoAmI{padding:8px 9px;max-width:38vw;text-overflow:ellipsis}
   .keypad{gap:8px;margin-top:20px}
   .keypad button{padding:12px 0;font-size:23px}
@@ -354,6 +366,7 @@ table.grid td{padding:0}
     <!-- DRILL -->
     <section id="drillView">
       <div class="controls">
+        <button type="button" id="nextTrophyBtn">Next trophy</button>
         <div class="modes" id="modes" role="group" aria-label="Operation">
           <button data-mode="add">+</button>
           <button data-mode="sub">−</button>
@@ -522,7 +535,7 @@ function readProfiles(){
 }
 const writeProfiles = () => { try{ store.set(NS+':profiles', JSON.stringify(profiles)); }catch(e){} };
 
-function blankData(){ return { facts:{}, trophies:{}, mode:'mul', max:12, set:null, foryou:null }; }
+function blankData(){ return { facts:{}, trophies:{}, mode:'add', max:5, set:null, foryou:null }; }
 function openProfile(id){
   profileId = id;
   try {
@@ -696,6 +709,42 @@ const TROPHIES = [
   { id:'set_x10',    group:'Special sets', kind:'medal', metal:'gem',    tag:'×10', name:'Ten times table',  goal: factGoal(SETS.x10.pool()) }
 ];
 const GROUP_ORDER = ['Practice','Adding','Taking away','Times tables','Dividing','Special sets'];
+
+/* ============================================================
+   CURRICULUM LADDER
+   Where a session starts: the first range trophy still unwon,
+   in teaching order — all of adding, then taking away, then
+   times tables, then dividing, each 5 → 10 → 12.
+   ============================================================ */
+const LADDER = OP_TROPHIES.flatMap(({op}) => [5,10,12].map(max => ({ mode:op, max })));
+const nextRung = () => LADDER.find(r => !data.trophies[r.mode + r.max]) || null;
+/* where the ladder says we should be right now */
+const ladderTarget = () => {
+  const r = nextRung();
+  return r ? { mode:r.mode, max:r.max, rung:r } : { mode:'mix', max:12, rung:null };
+};
+
+let startNote = '';   /* non-empty means the current selection is ladder-driven */
+
+function applyLadder(){
+  const t = ladderTarget();
+  data.set = null;
+  data.mode = t.mode;
+  data.max  = t.max;
+  if (t.rung){
+    const tr = TROPHIES.find(x => x.id === t.rung.mode + t.rung.max);
+    const g = tr.goal();
+    startNote = `Working on ${tr.name.toLowerCase()} — your next trophy. `
+              + `${g.have} of ${g.need} facts learned.`;
+  } else {
+    startNote = 'Every operation trophy is won — practicing a mix of everything.';
+  }
+  save();
+}
+
+/* Jumping to the next rung is an explicit action now — see the
+   "Next trophy" button. startNote non-empty means the current
+   selection came from the ladder rather than a manual choice. */
 
 /* ---- the drawings ---------------------------------------- */
 const tagSize = t => t.length >= 4 ? 10 : t.length === 3 ? 12 : 15;
@@ -924,6 +973,14 @@ function syncControls(){
     b.setAttribute('aria-pressed', String(!data.set && b.dataset.mode === data.mode)));
   [...el('sets').children].forEach(b =>
     b.setAttribute('aria-pressed', String(b.dataset.set === data.set)));
+
+  /* not a set — lit when the current selection came from the ladder */
+  const lt = ladderTarget();
+  el('nextTrophyBtn').setAttribute('aria-pressed', String(!!startNote));
+  el('nextTrophyBtn').textContent = lt.rung
+    ? 'Next trophy · ' + SIGN[lt.rung.mode] + ' ≤' + lt.rung.max
+    : 'Next trophy';
+
   el('range').disabled = !!data.set;
   el('range').title = data.set ? 'Practice sets bring their own range' : '';
   el('forYouBtn').textContent = (data.set === 'foryou' && data.foryou)
@@ -933,16 +990,23 @@ function syncControls(){
   note.classList.remove('warn');
   if (data.set === 'foryou' && data.foryou) note.textContent = FAMILY_NOTE[data.foryou.op](data.foryou.n) + ' Tap again to re-check.';
   else if (data.set && SETS[data.set])      note.textContent = SETS[data.set].note;
-  else                                      note.textContent = '';
+  else                                      note.textContent = startNote;
 }
 
 el('modes').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
-  data.mode = b.dataset.mode; data.set = null; save(); syncControls(); rebuild();
+  data.mode = b.dataset.mode; data.set = null; startNote = '';
+  save(); syncControls(); rebuild();
+});
+el('nextTrophyBtn').addEventListener('click', () => {
+  applyLadder();                       /* jump to the next unwon rung */
+  el('range').value = String(data.max);
+  syncControls(); rebuild();
 });
 el('sets').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   const s = b.dataset.set;
+
   if (s === 'foryou'){
     const found = weakestFamily();
     if (!found){
@@ -955,9 +1019,13 @@ el('sets').addEventListener('click', e => {
   } else {
     data.set = (data.set === s) ? null : s;
   }
+  startNote = '';
   save(); syncControls(); rebuild();
 });
-el('range').addEventListener('change', e => { data.max = Number(e.target.value); save(); rebuild(); });
+el('range').addEventListener('change', e => {
+  data.max = Number(e.target.value); startNote = '';
+  save(); syncControls(); rebuild();
+});
 
 const VIEWS = { drill:'drillView', progress:'progressView', trophies:'trophyView' };
 function showView(name){
@@ -995,9 +1063,10 @@ function renderWho(){
 function switchTo(id){
   openProfile(id);
   session.n = session.correct = session.streak = 0; session.times.length = 0;
-  el('range').value = String(data.max);
   answeredTotal = totalAnswered();
   checkTrophies(true);
+  applyLadder();                       /* pick the starting point before the UI syncs */
+  el('range').value = String(data.max);
   renderWho(); renderSession(); syncControls(); rebuild();
   showView('drill');
 }
@@ -1020,9 +1089,11 @@ el('renameBtn').addEventListener('click', () => {
 });
 el('resetBtn').addEventListener('click', () => {
   if (!confirm(`Erase every answer and every trophy for ${nameOf(profileId)}? This cannot be undone.`)) return;
-  data = Object.assign(blankData(), { mode:data.mode, max:data.max });
+  data = blankData();
   answeredTotal = 0;
-  store.del(NS+':'+profileId); save();
+  store.del(NS+':'+profileId);
+  applyLadder();                       /* trophies are gone, so drop back to the first rung */
+  el('range').value = String(data.max);
   session.n = session.correct = session.streak = 0; session.times.length = 0;
   renderSession(); syncControls(); renderProgress(); rebuild();
 });
