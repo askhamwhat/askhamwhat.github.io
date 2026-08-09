@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fact Drill — basic arithmetic practice</title>
+<title>Math Master — basic arithmetic practice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -328,7 +328,7 @@ table.grid td{padding:0}
   <!-- ===================== GATE ===================== -->
   <section id="gateView" class="hidden">
     <div class="panel gate op-star">
-      <h1>Who's practising?</h1>
+      <h1>Who's practicing?</h1>
       <p>Everyone gets their own record and their own trophy shelf. Nothing leaves this browser.</p>
       <div class="row">
         <input type="text" class="field" id="gateName" placeholder="Name" autocomplete="off" maxlength="24">
@@ -341,11 +341,11 @@ table.grid td{padding:0}
   <!-- ===================== APP ===================== -->
   <div id="appView" class="hidden">
     <header class="top">
-      <div class="brand"><span class="a">Fact</span><span class="d">·</span><span class="b">Drill</span></div>
+      <div class="brand"><span class="a">Math</span><span class="d">·</span><span class="b">Master</span></div>
       <div class="tagline">Type the answer, press Enter.</div>
-      <select id="whoAmI" aria-label="Who's practising"></select>
+      <select id="whoAmI" aria-label="Who's practicing"></select>
       <div class="nav" id="nav" role="group" aria-label="View">
-        <button data-view="drill">Drill</button>
+        <button data-view="drill">Practice</button>
         <button data-view="progress">Progress</button>
         <button data-view="trophies">Trophies</button>
       </div>
@@ -445,7 +445,7 @@ table.grid td{padding:0}
 
       <div class="panel op-star">
         <h2>Shakiest facts</h2>
-        <p class="sub">Sorted by accuracy, then speed. These come up most often in the drill.</p>
+        <p class="sub">Sorted by accuracy, then speed. These come up most often in practice.</p>
         <ul class="weak" id="weakList"></ul>
       </div>
 
@@ -947,7 +947,7 @@ el('sets').addEventListener('click', e => {
     const found = weakestFamily();
     if (!found){
       const note = el('setNote');
-      note.textContent = 'Not enough answers yet — practise anything for a minute and this will find your weakest row.';
+      note.textContent = 'Not enough answers yet — practice anything for a minute and this will find your weakest row.';
       note.classList.add('warn');
       return;
     }
