@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fact Drill — basic arithmetic practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — poster paint on school graph paper
+   ============================================================ */
+:root{
+  --paper:    #EDF3FF;
+  --card:     #FFFFFF;
+  --rule:     #CFE0F5;
+  --ink:      #1B2A4A;
+  --ink-soft: #6B7FA3;
+
+  --red:    #EF4136;
+  --blue:   #2D8FFF;
+  --green:  #2FBF5B;
+  --yellow: #FFC820;
+  --purple: #7C4DDA;
+  --orange: #FF8A3D;
+
+  /* mastery bins: shaky → getting there → learned */
+  --m0:#FFD23F; --m1:#2FD35A; --m2:#2D8FFF;
+
+  --grid-cell: 16px;
+  --sans: "Nunito", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --display: "Baloo 2", "Nunito", ui-rounded, system-ui, sans-serif;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:var(--sans);font-weight:600;
+  color:var(--ink);
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size:26px 26px;
+  background-position:-1px -1px;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.9), rgba(255,255,255,0) 65%);
+}
+.wrap{position:relative;max-width:940px;margin:0 auto;padding:20px 18px 64px}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.brand{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:.01em;line-height:1}
+.brand .a{color:var(--blue)} .brand .b{color:var(--red)} .brand .d{color:var(--yellow)}
+.tagline{font-size:13px;color:var(--ink-soft);margin-right:auto}
+
+select, .btn, input[type=text].field{
+  font-family:var(--sans);font-weight:700;font-size:13px;color:var(--ink);
+  background:var(--card);border:2px solid var(--rule);border-radius:12px;
+  padding:8px 12px;cursor:pointer;
+}
+input[type=text].field{cursor:text}
+.btn:hover{background:#EAF3FF;border-color:var(--blue)}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--ink-soft)}
+.btn.ghost:hover{color:var(--red);background:transparent;text-decoration:underline}
+.btn.solid{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.solid:hover{background:#1878e6}
+select:disabled{opacity:.45;cursor:not-allowed}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+.nav{display:flex;background:var(--card);border:2px solid var(--rule);border-radius:12px;overflow:hidden}
+.nav button{
+  font-family:var(--sans);font-weight:700;font-size:13px;line-height:1;padding:9px 13px;
+  border:0;border-right:2px solid var(--rule);background:transparent;color:var(--ink-soft);cursor:pointer;
+}
+.nav button:last-child{border-right:0}
+.nav button[aria-pressed="true"]{background:var(--blue);color:#fff}
+.nav button:hover:not([aria-pressed="true"]){background:#EAF3FF;color:var(--ink)}
+
+/* ============================================================
+   CONTROLS — each operation keeps its own colour throughout
+   ============================================================ */
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.modes{display:flex;background:var(--card);border:2px solid var(--rule);border-radius:14px;overflow:hidden}
+.modes button{
+  font-family:var(--display);font-weight:700;font-size:20px;line-height:1;
+  padding:8px 16px;border:0;border-right:2px solid var(--rule);
+  background:transparent;color:var(--ink-soft);cursor:pointer;transition:background .12s,color .12s;
+}
+.modes button:last-child{border-right:0}
+.modes button.wordy{font-family:var(--sans);font-size:13px;font-weight:700}
+.modes button:hover:not([aria-pressed="true"]){background:#F0F5FF;color:var(--ink)}
+.modes button[aria-pressed="true"]{color:#fff}
+[data-mode="add"][aria-pressed="true"]{background:var(--red)}
+[data-mode="sub"][aria-pressed="true"]{background:var(--blue)}
+[data-mode="mul"][aria-pressed="true"]{background:var(--green)}
+[data-mode="div"][aria-pressed="true"]{background:var(--purple)}
+[data-mode="mix"][aria-pressed="true"]{background:var(--orange)}
+
+.sets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.sets button{
+  font-family:var(--sans);font-weight:700;font-size:13px;line-height:1;
+  padding:9px 14px;border:2px solid var(--rule);border-radius:999px;
+  background:var(--card);color:var(--ink-soft);cursor:pointer;transition:background .12s,color .12s;
+}
+.sets button:hover:not([aria-pressed="true"]){background:#F0F5FF;color:var(--ink)}
+.sets button[aria-pressed="true"]{color:#fff}
+[data-set="from10"][aria-pressed="true"]{background:var(--blue);border-color:var(--blue)}
+[data-set="double"][aria-pressed="true"]{background:var(--red);border-color:var(--red)}
+[data-set="x5"][aria-pressed="true"],[data-set="x10"][aria-pressed="true"]{background:var(--green);border-color:var(--green)}
+[data-set="foryou"][aria-pressed="true"]{background:var(--orange);border-color:var(--orange)}
+
+.setnote{font-size:12.5px;color:var(--ink-soft);margin:0 0 18px;min-height:1.2em}
+.setnote.warn{color:var(--red)}
+
+/* ============================================================
+   THE WORKSHEET
+   ============================================================ */
+.sheet{
+  background:var(--card);border:2px solid var(--rule);border-radius:18px;
+  box-shadow:0 6px 0 rgba(27,42,74,.06);
+  padding:44px 28px 30px;display:flex;flex-direction:column;align-items:center;
+}
+.sheet.shake{animation:shake .3s}
+@keyframes shake{
+  0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)}
+  45%{transform:translateX(7px)} 70%{transform:translateX(-3px)}
+}
+.problem{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(46px, 12vw, 80px);line-height:1.1;
+  display:grid;grid-template-columns:auto 4ch;column-gap:.3em;
+}
+.problem .num{text-align:right;grid-column:2}
+.problem .op{text-align:left;color:var(--ink-soft)}
+.problem .spacer{grid-column:1}
+.answerline{grid-column:1 / -1;height:5px;background:var(--ink);margin:.14em 0 .08em;border-radius:3px}
+.entry{
+  grid-column:1 / -1;
+  display:flex;justify-content:flex-end;align-items:center;
+  min-height:1.1em;color:var(--green);
+}
+.entry .typed{text-align:right}
+.entry .caret{
+  width:.08em;height:.78em;background:var(--blue);border-radius:2px;margin-left:.04em;
+  animation:blink 1.05s steps(1,end) infinite;
+}
+.entry:not(.typing) .caret{display:none}
+@keyframes blink{50%{opacity:0}}
+.entry.wrong{color:var(--red)}
+.entry.wrong .typed{text-decoration:line-through;text-decoration-thickness:4px}
+.sheet.right .answerline{background:var(--green)}
+.entry.right .typed{color:var(--green)}
+
+/* chunky keypad — the only entry method on touch, optional everywhere else */
+.keypad{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  width:100%;max-width:300px;margin:26px auto 0;
+}
+.keypad button{
+  font-family:var(--display);font-weight:700;font-size:26px;line-height:1;
+  padding:14px 0;border:2px solid var(--rule);border-radius:16px;
+  background:var(--card);color:var(--ink);cursor:pointer;
+  box-shadow:0 4px 0 rgba(27,42,74,.12);
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;
+}
+.keypad button:active{transform:translateY(4px);box-shadow:none}
+.keypad button.del{background:#FFF3DC;border-color:#FFD79A;color:#9A6512;font-size:22px}
+.keypad button.go{background:var(--green);border-color:#25A14A;color:#fff;box-shadow:0 4px 0 #1E8A3E}
+.keypad button.go:active{box-shadow:none}
+@media (hover:hover){.keypad button:hover{border-color:var(--blue)}
+  .keypad button.go:hover{background:#2AAE53;border-color:#25A14A}}
+
+.correction{
+  font-family:var(--display);font-weight:700;font-size:clamp(22px,5vw,32px);color:var(--green);
+  margin-top:10px;min-height:1.4em;display:flex;align-items:center;gap:12px;
+}
+.correction .hint{font-family:var(--sans);font-weight:600;font-size:12px;color:var(--ink-soft)}
+.correction.blank{visibility:hidden}
+
+.session{
+  display:flex;gap:26px;flex-wrap:wrap;justify-content:center;
+  margin-top:26px;padding-top:18px;border-top:2px solid var(--rule);width:100%;
+}
+.stat{text-align:center}
+.stat b{display:block;font-family:var(--display);font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+
+/* ============================================================
+   PANELS
+   ============================================================ */
+.panel{background:var(--card);border:2px solid var(--rule);border-radius:18px;padding:22px;margin-bottom:16px}
+.panel h2{
+  font-family:var(--display);font-size:17px;font-weight:700;margin:0 0 4px;
+  display:flex;align-items:center;gap:9px;
+}
+.panel h2::before{content:"";width:14px;height:14px;border-radius:5px;background:var(--blue);flex:none}
+.panel.op-add  h2::before{background:var(--red)}
+.panel.op-sub  h2::before{background:var(--blue)}
+.panel.op-mul  h2::before{background:var(--green)}
+.panel.op-div  h2::before{background:var(--purple)}
+.panel.op-star h2::before{background:var(--yellow)}
+.panel .sub{font-size:12.5px;color:var(--ink-soft);margin:0 0 16px}
+.headline{display:flex;gap:34px;flex-wrap:wrap}
+.headline .stat{text-align:left}
+.headline .stat b{font-size:34px}
+
+.gate{max-width:440px;margin:8vh auto 0;text-align:left}
+.gate h1{font-family:var(--display);font-size:26px;font-weight:800;margin:0 0 6px}
+.gate p{font-size:13px;color:var(--ink-soft);margin:0 0 18px}
+.gate .row{display:flex;gap:8px}
+.gate .field{flex:1;font-size:15px}
+.gate .who{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:16px;border-top:2px solid var(--rule)}
+
+/* ============================================================
+   TROPHY ROOM
+   ============================================================ */
+.trophygrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:14px}
+.trophy{
+  border:2px solid var(--rule);border-radius:16px;background:var(--card);
+  padding:14px 10px 12px;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;
+}
+.trophy svg{width:66px;height:76px;display:block}
+.trophy .nm{font-size:11px;font-weight:700;line-height:1.3}
+.trophy .meta{font-size:11px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.trophy.locked{border-style:dashed;color:var(--ink-soft);background:transparent}
+.trophy.locked svg{opacity:.55}
+.trophy.earned{box-shadow:0 5px 0 rgba(27,42,74,.08)}
+
+.trophygroup{
+  font-family:var(--display);font-size:14px;font-weight:700;color:var(--ink-soft);
+  margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+.trophygroup::after{content:"";flex:1;height:2px;background:var(--rule);border-radius:2px}
+.trophygroup:first-child{margin-top:0}
+
+.toasts{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:30;
+  display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.toast{
+  background:var(--card);border:3px solid var(--green);color:var(--ink);border-radius:16px;
+  padding:8px 18px 8px 10px;font-size:13.5px;font-weight:700;display:flex;gap:10px;align-items:center;
+  box-shadow:0 6px 0 rgba(27,42,74,.1);animation:pop .4s cubic-bezier(.2,1.3,.4,1);
+}
+.toast svg{width:32px;height:37px;flex:none}
+@keyframes pop{from{transform:translateY(16px) scale(.8);opacity:0}to{transform:none;opacity:1}}
+
+/* ============================================================
+   GRIDS — glossy beads
+   ============================================================ */
+.gridscroll{overflow-x:auto;padding-bottom:6px}
+table.grid{border-collapse:separate;border-spacing:2px}
+table.grid th{font-size:10px;font-weight:800;color:var(--ink-soft);padding:0;text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+table.grid th.row{text-align:right;padding-right:6px;font-size:11px}
+th.row.add{color:var(--red)} th.row.sub{color:var(--blue)}
+th.row.mul{color:var(--green)} th.row.div{color:var(--purple)}
+table.grid td{padding:0}
+.cell{width:var(--grid-cell);height:var(--grid-cell);border-radius:5px;border:2px solid transparent}
+.cell.scored{
+  border-color:rgba(27,42,74,.12);
+  background-image:radial-gradient(circle at 31% 25%, rgba(255,255,255,.8) 0 11%, rgba(255,255,255,0) 48%);
+  box-shadow:inset 0 -2px 0 rgba(0,0,0,.16);
+}
+.cell.unseen{border-color:var(--rule);border-style:dashed}
+.cell.void{background:transparent}
+.cell.outofrange{background:#DCE7F5;border-radius:2px}
+
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:11.5px;color:var(--ink-soft);align-items:center;font-weight:700}
+.legend i{display:inline-block;width:13px;height:13px;border-radius:4px;margin-right:5px;vertical-align:-2px}
+
+.weak{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:9px}
+.weak li{display:flex;align-items:center;gap:10px;border:2px solid var(--rule);border-radius:12px;padding:8px 12px}
+.weak .dot{width:14px;height:14px;border-radius:50%;flex:none;
+  background-image:radial-gradient(circle at 32% 26%, rgba(255,255,255,.85) 0 14%, rgba(255,255,255,0) 50%);
+  box-shadow:inset 0 -2px 0 rgba(0,0,0,.16)}
+.weak .fact{font-family:var(--display);font-size:17px;font-weight:700;flex:1;text-align:left}
+.weak em{font-style:normal;font-size:11px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.empty{font-size:13px;color:var(--ink-soft);font-style:italic}
+
+.notice{font-size:12.5px;color:#8A2C22;background:#FFE9E5;border:2px solid #FBBCB2;border-radius:12px;padding:10px 12px;margin-bottom:16px}
+.hidden{display:none !important}
+
+@media (max-width:520px){
+  :root{--grid-cell:14px}
+  .sheet{padding:30px 16px 22px}
+  .session{gap:16px}
+  .tagline{display:none}
+  .trophygrid{grid-template-columns:repeat(auto-fill,minmax(106px,1fr));gap:10px}
+  .trophy svg{width:56px;height:64px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="notice hidden" id="memNotice">
+    Progress is being kept in memory only — this preview can't write to browser storage.
+    Download the file and open it from your own machine to keep results between sessions.
+  </div>
+
+  <!-- ===================== GATE ===================== -->
+  <section id="gateView" class="hidden">
+    <div class="panel gate op-star">
+      <h1>Who's practising?</h1>
+      <p>Everyone gets their own record and their own trophy shelf. Nothing leaves this browser.</p>
+      <div class="row">
+        <input type="text" class="field" id="gateName" placeholder="Name" autocomplete="off" maxlength="24">
+        <button class="btn solid" id="gateGo">Start</button>
+      </div>
+      <div class="who" id="gateWho"></div>
+    </div>
+  </section>
+
+  <!-- ===================== APP ===================== -->
+  <div id="appView" class="hidden">
+    <header class="top">
+      <div class="brand"><span class="a">Fact</span><span class="d">·</span><span class="b">Drill</span></div>
+      <div class="tagline">Type the answer, press Enter.</div>
+      <select id="whoAmI" aria-label="Who's practising"></select>
+      <div class="nav" id="nav" role="group" aria-label="View">
+        <button data-view="drill">Drill</button>
+        <button data-view="progress">Progress</button>
+        <button data-view="trophies">Trophies</button>
+      </div>
+    </header>
+
+    <!-- DRILL -->
+    <section id="drillView">
+      <div class="controls">
+        <div class="modes" id="modes" role="group" aria-label="Operation">
+          <button data-mode="add">+</button>
+          <button data-mode="sub">−</button>
+          <button data-mode="mul">×</button>
+          <button data-mode="div">÷</button>
+          <button data-mode="mix" class="wordy">All</button>
+        </div>
+        <label>
+          <select id="range" aria-label="Number range">
+            <option value="5">up to 5</option>
+            <option value="10">up to 10</option>
+            <option value="12" selected>up to 12</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="sets" id="sets" role="group" aria-label="Practice sets">
+        <button data-set="from10">10 − ?</button>
+        <button data-set="double">Double it</button>
+        <button data-set="x5">× 5</button>
+        <button data-set="x10">× 10</button>
+        <button data-set="foryou" id="forYouBtn">For you</button>
+      </div>
+      <p class="setnote" id="setNote"></p>
+
+      <div class="sheet" id="sheet">
+        <div class="problem" id="problem">
+          <div class="spacer"></div><div class="num" id="opA">7</div>
+          <div class="op" id="opSign">×</div><div class="num" id="opB">8</div>
+          <div class="answerline"></div>
+          <div class="entry typing" id="answer" role="status" aria-live="polite" aria-label="Your answer">
+            <span class="typed" id="answerText"></span><i class="caret"></i>
+          </div>
+        </div>
+
+        <div class="correction blank" id="correction">
+          <span id="correctVal"></span>
+          <span class="hint">Press ✓ to continue</span>
+        </div>
+
+        <div class="keypad" id="keypad" role="group" aria-label="Number keypad">
+          <button type="button" tabindex="-1" data-k="1">1</button>
+          <button type="button" tabindex="-1" data-k="2">2</button>
+          <button type="button" tabindex="-1" data-k="3">3</button>
+          <button type="button" tabindex="-1" data-k="4">4</button>
+          <button type="button" tabindex="-1" data-k="5">5</button>
+          <button type="button" tabindex="-1" data-k="6">6</button>
+          <button type="button" tabindex="-1" data-k="7">7</button>
+          <button type="button" tabindex="-1" data-k="8">8</button>
+          <button type="button" tabindex="-1" data-k="9">9</button>
+          <button type="button" tabindex="-1" data-k="del" class="del" aria-label="Delete">⌫</button>
+          <button type="button" tabindex="-1" data-k="0">0</button>
+          <button type="button" tabindex="-1" data-k="go" class="go" aria-label="Check answer">✓</button>
+        </div>
+        <div class="session">
+          <div class="stat"><b id="sCount">0</b><span>answered</span></div>
+          <div class="stat"><b id="sAcc">—</b><span>correct</span></div>
+          <div class="stat"><b id="sStreak">0</b><span>streak</span></div>
+          <div class="stat"><b id="sTime">—</b><span>median</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TROPHIES -->
+    <section id="trophyView" class="hidden">
+      <div class="panel op-star">
+        <h2 id="trophyWho">Trophy shelf</h2>
+        <p class="sub" id="trophyCount">—</p>
+        <div id="trophyHost"></div>
+      </div>
+      <div class="panel op-star">
+        <p class="sub" style="margin:0">A fact counts as learned once you've answered it right at least twice,
+          quickly and without a recent slip. Outlined trophies show how many you've got so far.</p>
+      </div>
+    </section>
+
+    <!-- PROGRESS -->
+    <section id="progressView" class="hidden">
+      <div class="panel op-star">
+        <h2 id="progressWho">All time</h2>
+        <p class="sub">Everything recorded for this person on this device.</p>
+        <div class="headline">
+          <div class="stat"><b id="tCount">0</b><span>answered</span></div>
+          <div class="stat"><b id="tAcc">—</b><span>accuracy</span></div>
+          <div class="stat"><b id="tTime">—</b><span>median time</span></div>
+          <div class="stat"><b id="tSolid">0</b><span>facts learned</span></div>
+        </div>
+      </div>
+
+      <div class="panel op-star">
+        <h2>Shakiest facts</h2>
+        <p class="sub">Sorted by accuracy, then speed. These come up most often in the drill.</p>
+        <ul class="weak" id="weakList"></ul>
+      </div>
+
+      <div class="panel op-add">
+        <h2>Adding</h2>
+        <p class="sub">Rows are what you add. Columns are what you add it to. The diagonal is the doubles.</p>
+        <div class="gridscroll" id="gridAdd"></div>
+      </div>
+
+      <div class="panel op-sub">
+        <h2>Taking away</h2>
+        <p class="sub">Triangular, because you can only take away what's there.</p>
+        <div class="gridscroll" id="gridSub"></div>
+      </div>
+
+      <div class="panel op-mul">
+        <h2>Times tables</h2>
+        <p class="sub">The table, coloured in.</p>
+        <div class="gridscroll" id="gridMul"></div>
+      </div>
+
+      <div class="panel op-div">
+        <h2>Dividing</h2>
+        <p class="sub">Every dividend across, every divisor down — blank where it doesn't divide evenly. Scrolls sideways.</p>
+        <div class="gridscroll" id="gridDiv"></div>
+        <div class="legend">
+          <span><i class="cell outofrange"></i>divides, but outside the range</span>
+        </div>
+      </div>
+
+      <div class="panel op-star">
+        <div class="legend" style="margin-top:0">
+          <span><i class="cell scored" style="background-color:var(--m0)"></i>shaky</span>
+          <span><i class="cell scored" style="background-color:var(--m1)"></i>getting there</span>
+          <span><i class="cell scored" style="background-color:var(--m2)"></i>learned</span>
+          <span><i class="cell unseen"></i>not tried yet</span>
+          <span style="margin-left:auto;display:flex;gap:4px">
+            <button class="btn ghost" id="renameBtn">Rename</button>
+            <button class="btn ghost" id="resetBtn">Erase progress</button>
+            <button class="btn ghost" id="removeBtn">Remove person</button>
+          </span>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* ============================================================
+   STORAGE — localStorage with an in-memory fallback
+   ============================================================ */
+const store = (() => {
+  try {
+    localStorage.setItem('__probe__','1'); localStorage.removeItem('__probe__');
+    return { ok:true, get:k=>localStorage.getItem(k), set:(k,v)=>localStorage.setItem(k,v), del:k=>localStorage.removeItem(k) };
+  } catch (e) {
+    const mem = {};
+    return { ok:false, get:k=>(k in mem?mem[k]:null), set:(k,v)=>{mem[k]=v}, del:k=>{delete mem[k]} };
+  }
+})();
+if (!store.ok) document.getElementById('memNotice').classList.remove('hidden');
+
+const NS = 'factdrill:v1';
+const el = id => document.getElementById(id);
+
+let profiles = [], profileId = null, data = null;
+
+function readProfiles(){
+  try { const r = store.get(NS+':profiles'); if (r) return JSON.parse(r) || []; } catch(e){}
+  if (store.get(NS+':default')) return [{ id:'default', name:'Practice' }];
+  return [];
+}
+const writeProfiles = () => { try{ store.set(NS+':profiles', JSON.stringify(profiles)); }catch(e){} };
+
+function blankData(){ return { facts:{}, trophies:{}, mode:'mul', max:12, set:null, foryou:null }; }
+function openProfile(id){
+  profileId = id;
+  try {
+    const raw = store.get(NS+':'+id);
+    const d = raw ? JSON.parse(raw) : null;
+    data = (d && d.facts) ? Object.assign(blankData(), d) : blankData();
+  } catch(e){ data = blankData(); }
+  if (!data.trophies) data.trophies = {};
+}
+let saveTimer = null;
+function save(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>{ try{ store.set(NS+':'+profileId, JSON.stringify(data)); }catch(e){} }, 200);
+}
+const newId = () => 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+
+/* ============================================================
+   FACTS — key format "op:a|b"
+   ============================================================ */
+const SIGN = { add:'+', sub:'−', mul:'×', div:'÷' };
+const OP_COLOR = { add:'var(--red)', sub:'var(--blue)', mul:'var(--green)', div:'var(--purple)' };
+const GRID_MAX = 12;
+const seq = (lo,hi) => Array.from({length:hi-lo+1},(_,i)=>lo+i);
+const keyOf  = f => f[0]+':'+f[1]+'|'+f[2];
+const answer = f => f[0]==='add' ? f[1]+f[2] : f[0]==='sub' ? f[1]-f[2] : f[0]==='mul' ? f[1]*f[2] : f[1]/f[2];
+
+function pool(mode, M){
+  const out = [];
+  if (mode === 'add') { for(let b=0;b<=M;b++) for(let a=0;a<=M;a++) out.push(['add',a,b]); }
+  if (mode === 'sub') { for(let s=0;s<=M;s++) for(let m=s;m<=M;m++) out.push(['sub',m,s]); }
+  if (mode === 'mul') { for(let b=0;b<=M;b++) for(let a=0;a<=M;a++) out.push(['mul',a,b]); }
+  if (mode === 'div') { for(let v=1;v<=M;v++) for(let q=0;q<=M;q++) out.push(['div',q*v,v]); }
+  if (mode === 'mix') { ['add','sub','mul','div'].forEach(m => out.push(...pool(m,M))); }
+  return out;
+}
+function familyPool(op, n){
+  if (op === 'add') return seq(0,GRID_MAX).map(a => ['add',a,n]);
+  if (op === 'sub') return seq(n,GRID_MAX).map(m => ['sub',m,n]);
+  if (op === 'mul') return seq(0,GRID_MAX).map(a => ['mul',a,n]);
+  return seq(0,GRID_MAX).map(q => ['div',q*n,n]);
+}
+const FAMILY_NOTE = {
+  add: n => `Adding ${n} — your shakiest family right now.`,
+  sub: n => `Taking ${n} away — your shakiest family right now.`,
+  mul: n => `The ${n} times table — your shakiest family right now.`,
+  div: n => `Dividing by ${n} — your shakiest family right now.`
+};
+const familyTag = (op,n) => SIGN[op] + n;
+
+const SETS = {
+  from10: { note:'Taking away from 10 — the pairs that make ten.', pool:()=>seq(0,10).map(s=>['sub',10,s]) },
+  double: { note:'Doubles, 0 + 0 up to 12 + 12. This is the diagonal of the adding grid.', pool:()=>seq(0,GRID_MAX).map(a=>['add',a,a]) },
+  x5:     { note:'The 5 times table.',  pool:()=>seq(0,GRID_MAX).map(a=>['mul',a,5]) },
+  x10:    { note:'The 10 times table.', pool:()=>seq(0,GRID_MAX).map(a=>['mul',a,10]) }
+};
+
+/* ============================================================
+   WEIGHTING
+   ============================================================ */
+const NEW_W = 3, MIN_W = 0.3, MAX_W = 6, TARGET_MS = 4000, NO_REPEAT = 6;
+const recent = [];
+const clamp = (x,lo,hi) => x < lo ? lo : x > hi ? hi : x;
+
+function weight(rec, now){
+  if (!rec || !rec.s) return NEW_W;
+  const acc   = rec.c / rec.s;
+  const slow  = clamp(rec.ms / TARGET_MS, 0, 1.5);
+  const stale = clamp((now - rec.t) / (20*60*1000), 0, 1);
+  return clamp(0.4 + (1-acc)*5 + slow*1.5 + stale*0.8, MIN_W, MAX_W);
+}
+function pick(){
+  const now = Date.now();
+  const gap = Math.min(NO_REPEAT, Math.max(1, Math.floor(currentPool.length/3)));
+  const blocked = new Set(recent.slice(-gap));
+  let candidates = currentPool.filter(f => !blocked.has(keyOf(f)));
+  if (!candidates.length) candidates = currentPool;
+  const w = candidates.map(f => weight(data.facts[keyOf(f)], now));
+  let roll = Math.random() * w.reduce((a,b)=>a+b,0);
+  for (let i=0;i<candidates.length;i++){ roll -= w[i]; if (roll <= 0) return candidates[i]; }
+  return candidates[candidates.length-1];
+}
+
+/* ============================================================
+   MASTERY — three hard bins, no blending in between.
+   The top bin is exactly the "learned" test the trophies use.
+   ============================================================ */
+function mastery(rec){
+  if (!rec || !rec.s) return null;
+  const acc  = rec.c / rec.s;
+  const fast = clamp(1 - (rec.ms - 1200) / 5000, 0, 1);
+  return 0.65*acc + 0.35*fast;
+}
+const LEARNED = 0.8;
+const isLearned = rec => !!rec && rec.s >= 2 && mastery(rec) >= LEARNED;
+
+const BINS = [
+  { max: 0.6,      color:'#FFD23F', label:'shaky' },
+  { max: LEARNED,  color:'#2FD35A', label:'getting there' },
+  { max: Infinity, color:'#2D8FFF', label:'learned' }
+];
+/* a fact needs two attempts to reach the top bin, same as a trophy */
+function binFor(rec){
+  const m = mastery(rec);
+  if (m === null) return null;
+  if (m >= LEARNED && rec.s < 2) return BINS[1];
+  return BINS.find(b => m < b.max) || BINS[BINS.length-1];
+}
+
+const MIN_FACTS = 3, MIN_TRIES = 5;
+function weakestFamily(){
+  let best = null;
+  for (const op of ['add','sub','mul','div']){
+    for (let n = (op==='div'?1:0); n <= GRID_MAX; n++){
+      let sum = 0, seen = 0, tries = 0;
+      for (const f of familyPool(op,n)){
+        const rec = data.facts[keyOf(f)];
+        if (!rec || !rec.s) continue;
+        sum += mastery(rec); seen++; tries += rec.s;
+      }
+      if (seen < MIN_FACTS || tries < MIN_TRIES) continue;
+      const score = sum / seen;
+      if (!best || score < best.score || (score === best.score && tries > best.tries))
+        best = { op, n, score, tries };
+    }
+  }
+  return best;
+}
+
+/* ============================================================
+   TROPHIES
+   ============================================================ */
+const totalAnswered = () => Object.values(data.facts).reduce((a,r)=>a+r.s,0);
+let answeredTotal = 0;   /* running count, refreshed on profile load */
+const learnedIn = facts => facts.reduce((a,f)=> a + (isLearned(data.facts[keyOf(f)]) ? 1 : 0), 0);
+const factGoal  = facts => () => ({ have: learnedIn(facts), need: facts.length });
+
+/* metal → [body, shadow, engraving] */
+const METAL = {
+  bronze: ['#F0913F','#C25F1B','#4A2405'],
+  silver: ['#C7D6E0','#8098AC','#26364A'],
+  gold:   ['#FFC61E','#D48D00','#4A3200'],
+  gem:    ['#8B5CF6','#5B2FBF','#F2ECFF']
+};
+const VOLUME       = [10, 50, 100, 500, 1000, 5000, 10000];
+const VOLUME_METAL = ['bronze','bronze','silver','silver','gold','gold','gem'];
+const RANGE_METAL  = { 5:'bronze', 10:'silver', 12:'gold' };
+const shortNum = n => n >= 1000 ? (n/1000) + 'K' : String(n);
+
+const OP_TROPHIES = [
+  { op:'add', group:'Adding',       word:'Adding up to' },
+  { op:'sub', group:'Taking away',  word:'Taking away up to' },
+  { op:'mul', group:'Times tables', word:'Whole table to' },
+  { op:'div', group:'Dividing',     word:'Divided by up to' }
+];
+
+const TROPHIES = [
+  ...VOLUME.map((n,i) => ({
+    id:'ans'+n, group:'Practice', kind:'cup', metal:VOLUME_METAL[i], volume:true,
+    tag:shortNum(n), name:n.toLocaleString()+' answered',
+    goal: () => ({ have: answeredTotal, need: n })
+  })),
+  ...OP_TROPHIES.flatMap(({op, group, word}) =>
+    [5,10,12].map(M => ({
+      id:op+M, group, kind:'cup', metal:RANGE_METAL[M],
+      tag:SIGN[op]+M, name:word+' '+M,
+      goal: factGoal(pool(op, M))
+    }))),
+  { id:'set_from10', group:'Special sets', kind:'medal', metal:'silver', tag:'10−', name:'Making ten',       goal: factGoal(SETS.from10.pool()) },
+  { id:'set_double', group:'Special sets', kind:'medal', metal:'bronze', tag:'2×',  name:'Doubles',          goal: factGoal(SETS.double.pool()) },
+  { id:'set_x5',     group:'Special sets', kind:'medal', metal:'gold',   tag:'×5',  name:'Five times table', goal: factGoal(SETS.x5.pool()) },
+  { id:'set_x10',    group:'Special sets', kind:'medal', metal:'gem',    tag:'×10', name:'Ten times table',  goal: factGoal(SETS.x10.pool()) }
+];
+const GROUP_ORDER = ['Practice','Adding','Taking away','Times tables','Dividing','Special sets'];
+
+/* ---- the drawings ---------------------------------------- */
+const tagSize = t => t.length >= 4 ? 10 : t.length === 3 ? 12 : 15;
+
+function trophySVG(t, earned){
+  const [body, shade, engrave] = METAL[t.metal];
+  const fill   = earned ? body    : 'none';
+  const stroke = earned ? shade   : 'currentColor';
+  const text   = earned ? engrave : 'currentColor';
+  const sw     = earned ? 2 : 2;
+  const A = `fill="${fill}" stroke="${stroke}" stroke-width="${sw}" stroke-linejoin="round"`;
+  const shine = earned
+    ? `<ellipse cx="25" cy="23" rx="4" ry="7" fill="#fff" opacity=".5" transform="rotate(-18 25 23)"/>` : '';
+  const medalShine = earned
+    ? `<ellipse cx="25" cy="38" rx="4.5" ry="7" fill="#fff" opacity=".45" transform="rotate(-22 25 38)"/>` : '';
+
+  const cup = `
+    <path d="M20 17 C10 17 7.5 21 7.5 25.5 C7.5 31.5 13 34.5 19 35"
+          fill="none" stroke="${stroke}" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M44 17 C54 17 56.5 21 56.5 25.5 C56.5 31.5 51 34.5 45 35"
+          fill="none" stroke="${stroke}" stroke-width="3.4" stroke-linecap="round"/>
+    <rect x="17" y="8" width="30" height="6.5" rx="3" ${A}/>
+    <path d="M20 14.5 H44 V26 C44 35.5 38.5 41.5 32 41.5 C25.5 41.5 20 35.5 20 26 Z" ${A}/>
+    ${shine}
+    <path d="M28.5 41 H35.5 V49.5 H28.5 Z" ${A}/>
+    <path d="M23 49 H41 L44.5 58 H19.5 Z" ${A}/>
+    <rect x="16" y="57.5" width="32" height="7" rx="3" ${A}/>
+    <text x="32" y="31" text-anchor="middle" fill="${text}"
+          font-family="Baloo 2, sans-serif" font-size="${tagSize(t.tag)}" font-weight="700">${t.tag}</text>`;
+
+  const medal = `
+    <path d="M17 5 H28 L33.5 35 H23.5 Z" ${A}/>
+    <path d="M47 5 H36 L30.5 35 H40.5 Z" ${A}/>
+    <circle cx="32" cy="45" r="17" ${A}/>
+    ${medalShine}
+    <circle cx="32" cy="45" r="12.5" fill="none" stroke="${stroke}" stroke-width="1.4" opacity=".7"/>
+    <text x="32" y="51" text-anchor="middle" fill="${text}"
+          font-family="Baloo 2, sans-serif" font-size="${tagSize(t.tag)}" font-weight="700">${t.tag}</text>`;
+
+  return `<svg viewBox="0 0 64 72" xmlns="http://www.w3.org/2000/svg" role="img" aria-hidden="true">
+    ${t.kind === 'medal' ? medal : cup}</svg>`;
+}
+
+/* A fact-based goal can only advance when some fact crosses into "learned",
+   so on ordinary answers we only re-check the volume trophies. */
+function checkTrophies(silent, factsChanged = true){
+  const won = [];
+  for (const t of TROPHIES){
+    if (data.trophies[t.id]) continue;
+    if (!t.volume && !factsChanged) continue;
+    const g = t.goal();
+    if (g.have >= g.need){ data.trophies[t.id] = Date.now(); won.push(t); }
+  }
+  if (won.length){ save(); if (!silent) won.forEach(showToast); }
+  return won;
+}
+function showToast(t){
+  const d = document.createElement('div');
+  d.className = 'toast';
+  d.innerHTML = trophySVG(t, true) + '<span></span>';
+  d.querySelector('span').textContent = 'Trophy won — ' + t.name;
+  el('toasts').appendChild(d);
+  setTimeout(()=>d.remove(), 3800);
+}
+
+const shortDate = ts => new Date(ts).toLocaleDateString(undefined,{month:'short',day:'numeric'});
+
+function renderTrophies(){
+  const host = el('trophyHost');
+  host.replaceChildren();
+  let earnedCount = 0;
+
+  for (const group of GROUP_ORDER){
+    const items = TROPHIES.filter(t => t.group === group);
+    if (!items.length) continue;
+    const h = document.createElement('div'); h.className = 'trophygroup'; h.textContent = group;
+    host.appendChild(h);
+
+    const grid = document.createElement('div'); grid.className = 'trophygrid';
+    for (const t of items){
+      const got = data.trophies[t.id];
+      if (got) earnedCount++;
+      const g = t.goal();
+      const card = document.createElement('div');
+      card.className = 'trophy ' + (got ? 'earned' : 'locked');
+      card.innerHTML = trophySVG(t, !!got);
+      const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = t.name;
+      const mt = document.createElement('div'); mt.className = 'meta';
+      mt.textContent = got ? shortDate(got) : Math.min(g.have, g.need) + ' / ' + g.need;
+      card.append(nm, mt);
+      card.title = got ? `${t.name} — won ${new Date(got).toLocaleDateString()}`
+                       : `${t.name} — ${Math.min(g.have,g.need)} of ${g.need} so far`;
+      grid.appendChild(card);
+    }
+    host.appendChild(grid);
+  }
+  el('trophyWho').textContent = nameOf(profileId) + "'s trophy shelf";
+  el('trophyCount').textContent = earnedCount + ' of ' + TROPHIES.length + ' won.';
+}
+
+/* ============================================================
+   DRILL LOOP
+   ============================================================ */
+const entryEl = el('answer'), entryText = el('answerText'),
+      correctionEl = el('correction'), correctValEl = el('correctVal'), sheetEl = el('sheet');
+let currentPool = [], current = null, shownAt = 0, state = 'ask', typed = '';
+const MAX_DIGITS = 4, ADVANCE_MS = 150;
+const session = { n:0, correct:0, streak:0, times:[] };
+
+function activePool(){
+  if (data.set === 'foryou' && data.foryou) return familyPool(data.foryou.op, data.foryou.n);
+  if (data.set && SETS[data.set])           return SETS[data.set].pool();
+  return pool(data.mode, data.max);
+}
+function rebuild(){ currentPool = activePool(); recent.length = 0; next(); }
+
+function renderEntry(){
+  entryText.textContent = typed;
+  entryEl.classList.toggle('typing', state === 'ask');
+}
+
+function next(){
+  current = pick();
+  recent.push(keyOf(current));
+  if (recent.length > NO_REPEAT) recent.shift();
+  el('opA').textContent = current[1];
+  el('opB').textContent = current[2];
+  el('opSign').textContent = SIGN[current[0]];
+  el('opSign').style.color = OP_COLOR[current[0]];
+  typed = '';
+  state = 'ask';
+  entryEl.classList.remove('wrong','right');
+  sheetEl.classList.remove('right');
+  correctionEl.classList.add('blank');
+  renderEntry();
+  shownAt = performance.now();
+}
+
+function submit(){
+  if (!/^\d+$/.test(typed)) return;
+
+  const elapsed = Math.min(performance.now() - shownAt, 20000);
+  const right = Number(typed) === answer(current);
+  const k = keyOf(current);
+  const rec = data.facts[k] || (data.facts[k] = { s:0, c:0, ms:0, t:0 });
+
+  const wasLearned = isLearned(rec);
+  rec.s++; rec.t = Date.now();
+  if (right){
+    rec.c++;
+    rec.ms = rec.ms ? Math.round(rec.ms*0.7 + elapsed*0.3) : Math.round(elapsed);
+  }
+  answeredTotal++;
+
+  /* paint the verdict before doing any bookkeeping — feedback first, work after */
+  if (right){
+    state = 'locked';
+    entryEl.classList.add('right');
+    sheetEl.classList.add('right');
+    renderEntry();
+    setTimeout(next, ADVANCE_MS);
+  } else {
+    state = 'review';
+    entryEl.classList.add('wrong');
+    renderEntry();
+    correctValEl.textContent = '= ' + answer(current);
+    correctionEl.classList.remove('blank');
+    sheetEl.classList.remove('shake'); void sheetEl.offsetWidth; sheetEl.classList.add('shake');
+  }
+
+  save();
+  session.n++;
+  if (right){ session.correct++; session.streak++; session.times.push(elapsed); }
+  else { session.streak = 0; }
+  renderSession();
+  checkTrophies(false, isLearned(rec) !== wasLearned);
+}
+
+/* one entry path for the keypad, the physical keyboard and the mouse */
+function press(k){
+  if (state === 'locked') return;
+  if (state === 'review'){ if (k === 'go') next(); return; }
+  if (k === 'go')  { submit(); return; }
+  if (k === 'del') { typed = typed.slice(0,-1); renderEntry(); return; }
+  if (typed.length < MAX_DIGITS && !(typed === '0' && k === '0')){
+    typed = (typed === '0' ? '' : typed) + k;
+    renderEntry();
+  }
+}
+
+el('keypad').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  press(b.dataset.k);
+});
+
+/* physical keyboard: nothing is focused, so listen at the document */
+document.addEventListener('keydown', e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const t = e.target;
+  if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;   // gate name box, profile picker
+  if (el('appView').classList.contains('hidden')) return;
+  if (el('drillView').classList.contains('hidden')) return;
+
+  if (/^[0-9]$/.test(e.key))                       { press(e.key); e.preventDefault(); }
+  else if (e.key === 'Backspace' || e.key === 'Delete') { press('del'); e.preventDefault(); }
+  else if (e.key === 'Enter' || e.key === '=')     { press('go');  e.preventDefault(); }
+});
+function median(a){
+  if (!a.length) return null;
+  const s = [...a].sort((x,y)=>x-y), h = s.length>>1;
+  return s.length % 2 ? s[h] : (s[h-1]+s[h])/2;
+}
+function renderSession(){
+  el('sCount').textContent  = session.n;
+  el('sAcc').textContent    = session.n ? Math.round(session.correct/session.n*100)+'%' : '—';
+  el('sStreak').textContent = session.streak;
+  const m = median(session.times);
+  el('sTime').textContent   = m ? (m/1000).toFixed(1)+'s' : '—';
+}
+
+/* ============================================================
+   CONTROLS
+   ============================================================ */
+function syncControls(){
+  [...el('modes').children].forEach(b =>
+    b.setAttribute('aria-pressed', String(!data.set && b.dataset.mode === data.mode)));
+  [...el('sets').children].forEach(b =>
+    b.setAttribute('aria-pressed', String(b.dataset.set === data.set)));
+  el('range').disabled = !!data.set;
+  el('range').title = data.set ? 'Practice sets bring their own range' : '';
+  el('forYouBtn').textContent = (data.set === 'foryou' && data.foryou)
+    ? 'For you · ' + familyTag(data.foryou.op, data.foryou.n) : 'For you';
+
+  const note = el('setNote');
+  note.classList.remove('warn');
+  if (data.set === 'foryou' && data.foryou) note.textContent = FAMILY_NOTE[data.foryou.op](data.foryou.n) + ' Tap again to re-check.';
+  else if (data.set && SETS[data.set])      note.textContent = SETS[data.set].note;
+  else                                      note.textContent = '';
+}
+
+el('modes').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  data.mode = b.dataset.mode; data.set = null; save(); syncControls(); rebuild();
+});
+el('sets').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  const s = b.dataset.set;
+  if (s === 'foryou'){
+    const found = weakestFamily();
+    if (!found){
+      const note = el('setNote');
+      note.textContent = 'Not enough answers yet — practise anything for a minute and this will find your weakest row.';
+      note.classList.add('warn');
+      return;
+    }
+    data.set = 'foryou'; data.foryou = { op:found.op, n:found.n };
+  } else {
+    data.set = (data.set === s) ? null : s;
+  }
+  save(); syncControls(); rebuild();
+});
+el('range').addEventListener('change', e => { data.max = Number(e.target.value); save(); rebuild(); });
+
+const VIEWS = { drill:'drillView', progress:'progressView', trophies:'trophyView' };
+function showView(name){
+  Object.entries(VIEWS).forEach(([k,id]) => el(id).classList.toggle('hidden', k !== name));
+  [...el('nav').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === name)));
+  if (name === 'progress') renderProgress();
+  if (name === 'trophies') renderTrophies();
+  /* drop focus from any control so digits reach the document handler */
+  if (name === 'drill' && document.activeElement) document.activeElement.blur();
+}
+el('nav').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  showView(b.dataset.view);
+});
+
+/* ============================================================
+   PROFILES
+   ============================================================ */
+const nameOf = id => (profiles.find(p => p.id === id) || {}).name || '—';
+
+function renderWho(){
+  const sel = el('whoAmI');
+  sel.replaceChildren();
+  profiles.forEach(p => {
+    const o = document.createElement('option');
+    o.value = p.id; o.textContent = p.name;
+    sel.appendChild(o);
+  });
+  const add = document.createElement('option');
+  add.value = '__new__'; add.textContent = '＋ Add someone';
+  sel.appendChild(add);
+  sel.value = profileId;
+  el('progressWho').textContent = nameOf(profileId) + ' — all time';
+}
+function switchTo(id){
+  openProfile(id);
+  session.n = session.correct = session.streak = 0; session.times.length = 0;
+  el('range').value = String(data.max);
+  answeredTotal = totalAnswered();
+  checkTrophies(true);
+  renderWho(); renderSession(); syncControls(); rebuild();
+  showView('drill');
+}
+function addProfile(name){
+  const p = { id:newId(), name:name.trim().slice(0,24) || 'Someone' };
+  profiles.push(p); writeProfiles();
+  return p.id;
+}
+el('whoAmI').addEventListener('change', e => {
+  if (e.target.value !== '__new__') { switchTo(e.target.value); return; }
+  const name = prompt('Name for the new person:');
+  if (!name || !name.trim()) { e.target.value = profileId; return; }
+  switchTo(addProfile(name));
+});
+el('renameBtn').addEventListener('click', () => {
+  const name = prompt('New name:', nameOf(profileId));
+  if (!name || !name.trim()) return;
+  profiles.find(x => x.id === profileId).name = name.trim().slice(0,24);
+  writeProfiles(); renderWho();
+});
+el('resetBtn').addEventListener('click', () => {
+  if (!confirm(`Erase every answer and every trophy for ${nameOf(profileId)}? This cannot be undone.`)) return;
+  data = Object.assign(blankData(), { mode:data.mode, max:data.max });
+  answeredTotal = 0;
+  store.del(NS+':'+profileId); save();
+  session.n = session.correct = session.streak = 0; session.times.length = 0;
+  renderSession(); syncControls(); renderProgress(); rebuild();
+});
+el('removeBtn').addEventListener('click', () => {
+  if (!confirm(`Remove ${nameOf(profileId)} and all their progress?`)) return;
+  store.del(NS+':'+profileId);
+  profiles = profiles.filter(p => p.id !== profileId);
+  writeProfiles();
+  if (profiles.length) switchTo(profiles[0].id); else showGate();
+});
+
+function showGate(){
+  el('appView').classList.add('hidden');
+  el('gateView').classList.remove('hidden');
+  const who = el('gateWho');
+  who.replaceChildren();
+  profiles.forEach(p => {
+    const b = document.createElement('button');
+    b.className = 'btn'; b.textContent = p.name;
+    b.onclick = () => enterApp(p.id);
+    who.appendChild(b);
+  });
+  who.classList.toggle('hidden', !profiles.length);
+  el('gateName').focus();
+}
+function enterApp(id){
+  el('gateView').classList.add('hidden');
+  el('appView').classList.remove('hidden');
+  switchTo(id);
+}
+el('gateGo').addEventListener('click', () => {
+  const name = el('gateName').value;
+  if (!name.trim()) { el('gateName').focus(); return; }
+  enterApp(addProfile(name));
+});
+el('gateName').addEventListener('keydown', e => { if (e.key === 'Enter') el('gateGo').click(); });
+
+/* ============================================================
+   PROGRESS GRIDS
+   ============================================================ */
+function cellFor(op, a, b){
+  const td = document.createElement('td');
+  const d  = document.createElement('div');
+  d.className = 'cell';
+  const rec = data.facts[op+':'+a+'|'+b];
+  const bin = binFor(rec);
+  if (bin === null){
+    d.classList.add('unseen');
+    d.title = `${a} ${SIGN[op]} ${b} — not tried yet`;
+  } else {
+    d.classList.add('scored');
+    d.style.backgroundColor = bin.color;   /* leaves the CSS shine gradient intact */
+    const secs = rec.ms ? (rec.ms/1000).toFixed(1)+'s avg' : 'no clean time yet';
+    d.title = `${a} ${SIGN[op]} ${b} = ${answer([op,a,b])} — ${bin.label}, ${rec.c}/${rec.s} correct, ${secs}`;
+  }
+  td.appendChild(d);
+  return td;
+}
+function blank(cls){
+  const td = document.createElement('td');
+  const d = document.createElement('div'); d.className = 'cell ' + cls;
+  td.appendChild(d); return td;
+}
+function headerRow(cols){
+  const tr = document.createElement('tr');
+  const th = document.createElement('th'); th.className='row';
+  tr.appendChild(th);
+  cols.forEach(c => { const h = document.createElement('th'); h.textContent = c; tr.appendChild(h); });
+  return tr;
+}
+function buildSquare(target, op, M){
+  const t = document.createElement('table'); t.className = 'grid';
+  t.appendChild(headerRow(seq(0,M)));
+  for (let b=0;b<=M;b++){
+    const tr = document.createElement('tr');
+    const th = document.createElement('th'); th.className='row '+op; th.textContent = SIGN[op]+b;
+    tr.appendChild(th);
+    for (let a=0;a<=M;a++) tr.appendChild(cellFor(op,a,b));
+    t.appendChild(tr);
+  }
+  target.replaceChildren(t);
+}
+function buildSub(target, M){
+  const t = document.createElement('table'); t.className='grid';
+  t.appendChild(headerRow(seq(0,M)));
+  for (let s=0;s<=M;s++){
+    const tr = document.createElement('tr');
+    const th = document.createElement('th'); th.className='row sub'; th.textContent = '−'+s;
+    tr.appendChild(th);
+    for (let m=0;m<=M;m++) tr.appendChild(m >= s ? cellFor('sub',m,s) : blank('void'));
+    t.appendChild(tr);
+  }
+  target.replaceChildren(t);
+}
+function buildDiv(target, M){
+  const t = document.createElement('table'); t.className='grid';
+  t.appendChild(headerRow(seq(0,M*M).map(d => d % 5 === 0 ? d : '')));
+  for (let v=1;v<=M;v++){
+    const tr = document.createElement('tr');
+    const th = document.createElement('th'); th.className='row div'; th.textContent = '÷'+v;
+    tr.appendChild(th);
+    for (let d=0;d<=M*M;d++){
+      if (d % v !== 0)  tr.appendChild(blank('void'));
+      else if (d/v > M) tr.appendChild(blank('outofrange'));
+      else              tr.appendChild(cellFor('div',d,v));
+    }
+    t.appendChild(tr);
+  }
+  target.replaceChildren(t);
+}
+
+function renderProgress(){
+  buildSquare(el('gridAdd'), 'add', GRID_MAX);
+  buildSub(el('gridSub'), GRID_MAX);
+  buildSquare(el('gridMul'), 'mul', GRID_MAX);
+  buildDiv(el('gridDiv'), GRID_MAX);
+
+  const entries  = Object.entries(data.facts).filter(([,r]) => r.s > 0);
+  const answered = entries.reduce((a,[,r]) => a + r.s, 0);
+  const correct  = entries.reduce((a,[,r]) => a + r.c, 0);
+  const times    = entries.filter(([,r]) => r.ms).map(([,r]) => r.ms);
+  const learned  = entries.filter(([,r]) => isLearned(r)).length;
+
+  el('tCount').textContent = answered;
+  el('tAcc').textContent   = answered ? Math.round(correct/answered*100)+'%' : '—';
+  const m = median(times);
+  el('tTime').textContent  = m ? (m/1000).toFixed(1)+'s' : '—';
+  el('tSolid').textContent = learned;
+
+  const list = el('weakList');
+  const weak = entries.map(([k,r]) => ({k, r, m:mastery(r)}))
+                      .sort((a,b) => a.m - b.m || b.r.s - a.r.s)
+                      .slice(0,8);
+  if (!weak.length){
+    list.innerHTML = '<li class="empty" style="border:0;grid-column:1/-1">Answer a few problems and the shaky ones will collect here.</li>';
+  } else {
+    list.replaceChildren(...weak.map(({k,r,m}) => {
+      const [op, ab] = k.split(':'); const [a,b] = ab.split('|');
+      const li = document.createElement('li');
+      const dot = document.createElement('span');
+      dot.className = 'dot'; dot.style.backgroundColor = binFor(r).color;
+      const f = document.createElement('span');
+      f.className = 'fact'; f.textContent = `${a} ${SIGN[op]} ${b}`;
+      const s = document.createElement('em');
+      s.textContent = `${r.c}/${r.s}` + (r.ms ? ` · ${(r.ms/1000).toFixed(1)}s` : '');
+      li.append(dot, f, s);
+      return li;
+    }));
+  }
+}
+
+/* ============================================================
+   GO
+   ============================================================ */
+profiles = readProfiles();
+if (profiles.length === 1) enterApp(profiles[0].id);
+else showGate();
+</script>
+</body>
+</html>
