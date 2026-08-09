@@ -34,8 +34,10 @@
 }
 
 *{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}   /* stop iOS inflating text in narrow columns */
 body{
   margin:0;
+  overflow-x:hidden;                  /* backstop; the real fix is per-element below */
   font-family:var(--sans);font-weight:600;
   color:var(--ink);
   background-color:var(--paper);
@@ -241,7 +243,8 @@ select:disabled{opacity:.45;cursor:not-allowed}
 .trophygroup:first-child{margin-top:0}
 
 .toasts{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:30;
-  display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+  display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;
+  max-width:calc(100vw - 24px)}
 .toast{
   background:var(--card);border:3px solid var(--green);color:var(--ink);border-radius:16px;
   padding:8px 18px 8px 10px;font-size:13.5px;font-weight:700;display:flex;gap:10px;align-items:center;
@@ -253,7 +256,8 @@ select:disabled{opacity:.45;cursor:not-allowed}
 /* ============================================================
    GRIDS — glossy beads
    ============================================================ */
-.gridscroll{overflow-x:auto;padding-bottom:6px}
+.gridscroll{overflow-x:auto;max-width:100%;padding-bottom:6px;
+  -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 table.grid{border-collapse:separate;border-spacing:2px}
 table.grid th{font-size:10px;font-weight:800;color:var(--ink-soft);padding:0;text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
 table.grid th.row{text-align:right;padding-right:6px;font-size:11px}
@@ -285,13 +289,30 @@ table.grid td{padding:0}
 .notice{font-size:12.5px;color:#8A2C22;background:#FFE9E5;border:2px solid #FBBCB2;border-radius:12px;padding:10px 12px;margin-bottom:16px}
 .hidden{display:none !important}
 
-@media (max-width:520px){
+@media (max-width:560px){
   :root{--grid-cell:14px}
-  .sheet{padding:30px 16px 22px}
-  .session{gap:16px}
+  .wrap{padding:14px 12px 48px}
+  .panel{padding:16px 13px}
+  .sheet{padding:28px 14px 20px}
+  .session{gap:14px}
+  .headline{gap:20px}
+  .headline .stat b{font-size:26px}
   .tagline{display:none}
-  .trophygrid{grid-template-columns:repeat(auto-fill,minmax(106px,1fr));gap:10px}
+  .trophygrid{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:10px}
   .trophy svg{width:56px;height:64px}
+  .weak{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .legend{gap:10px}
+}
+@media (max-width:400px){
+  .top{gap:8px}
+  .brand{font-size:20px}
+  .nav button{padding:8px 9px;font-size:12px}
+  .modes button{padding:8px 11px;font-size:18px}
+  .modes button.wordy{font-size:12px}
+  .sets button{padding:8px 11px;font-size:12px}
+  #whoAmI{padding:8px 9px;max-width:38vw;text-overflow:ellipsis}
+  .keypad{gap:8px;margin-top:20px}
+  .keypad button{padding:12px 0;font-size:23px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 </style>
