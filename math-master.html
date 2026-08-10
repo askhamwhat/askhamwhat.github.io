@@ -90,45 +90,32 @@ select:disabled{opacity:.45;cursor:not-allowed}
    CONTROLS — each operation keeps its own colour throughout
    ============================================================ */
 .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
-.modes{display:flex;background:var(--card);border:2px solid var(--rule);border-radius:14px;overflow:hidden}
-.modes button{
-  font-family:var(--display);font-weight:700;font-size:20px;line-height:1;
-  padding:8px 16px;border:0;border-right:2px solid var(--rule);
-  background:transparent;color:var(--ink-soft);cursor:pointer;transition:background .12s,color .12s;
-}
-.modes button:last-child{border-right:0}
-.modes button.wordy{font-family:var(--sans);font-size:13px;font-weight:700}
-.modes button:hover:not([aria-pressed="true"]){background:#F0F5FF;color:var(--ink)}
-.modes button[aria-pressed="true"]{color:#fff}
-[data-mode="add"][aria-pressed="true"]{background:var(--red)}
-[data-mode="sub"][aria-pressed="true"]{background:var(--blue)}
-[data-mode="mul"][aria-pressed="true"]{background:var(--green)}
-[data-mode="div"][aria-pressed="true"]{background:var(--purple)}
-[data-mode="mix"][aria-pressed="true"]{background:var(--orange)}
+#mode{font-family:var(--display);font-weight:700;font-size:15px;padding:8px 11px}
+#mode:disabled,#range:disabled{opacity:.45}
+/* each choice carries its own colour in the open list, not just the selected one */
+#mode option[value="add"]{color:var(--red)}
+#mode option[value="sub"]{color:var(--blue)}
+#mode option[value="mul"]{color:var(--green)}
+#mode option[value="div"]{color:var(--purple)}
+#mode option[value="mix"]{color:var(--orange)}
+#specials option[value="from10"]{color:var(--blue)}
+#specials option[value="double"]{color:var(--red)}
+#specials option[value="div2"]{color:var(--purple)}
+#specials option[value="x5"],#specials option[value="x10"]{color:var(--green)}
+#specials option[value=""]{color:var(--ink-soft)}
 
-.sets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
-.sets button{
-  font-family:var(--sans);font-weight:700;font-size:13px;line-height:1;
-  padding:9px 14px;border:2px solid var(--rule);border-radius:999px;
-  background:var(--card);color:var(--ink-soft);cursor:pointer;transition:background .12s,color .12s;
-}
-.sets button:hover:not([aria-pressed="true"]){background:#F0F5FF;color:var(--ink)}
-.sets button[aria-pressed="true"]{color:#fff}
-[data-set="from10"][aria-pressed="true"]{background:var(--blue);border-color:var(--blue)}
-[data-set="double"][aria-pressed="true"]{background:var(--red);border-color:var(--red)}
-[data-set="x5"][aria-pressed="true"],[data-set="x10"][aria-pressed="true"]{background:var(--green);border-color:var(--green)}
-[data-set="foryou"][aria-pressed="true"]{background:var(--orange);border-color:var(--orange)}
-
-/* lives in the operations row, styled as a pill; id beats .sets rules on colour */
-#nextTrophyBtn{
+/* pill buttons that sit in the controls row */
+#nextTrophyBtn,#forYouBtn{
   font-family:var(--sans);font-weight:700;font-size:13px;line-height:1;
   padding:9px 14px;border:2px solid var(--rule);border-radius:999px;
   background:var(--card);color:var(--ink-soft);cursor:pointer;
   transition:background .12s,color .12s;
 }
-#nextTrophyBtn:hover{background:#F0F5FF;color:var(--ink)}
+#nextTrophyBtn:hover,#forYouBtn:hover{background:#F0F5FF;color:var(--ink)}
 #nextTrophyBtn[aria-pressed="true"]{background:var(--yellow);border-color:#E0A800;color:var(--ink)}
 #nextTrophyBtn[aria-pressed="true"]:hover{background:#FFD44F}
+#forYouBtn[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#fff}
+#forYouBtn[aria-pressed="true"]:hover{background:#F57C2A}
 
 .setnote{font-size:12.5px;color:var(--ink-soft);margin:0 0 18px;min-height:1.2em}
 .setnote.warn{color:var(--red)}
@@ -265,6 +252,24 @@ select:disabled{opacity:.45;cursor:not-allowed}
 @keyframes pop{from{transform:translateY(16px) scale(.8);opacity:0}to{transform:none;opacity:1}}
 
 /* ============================================================
+   REFERENCE TABLES
+   ============================================================ */
+table.reftable{border-collapse:collapse;font-variant-numeric:tabular-nums}
+table.reftable th, table.reftable td{
+  border:1px solid var(--rule);min-width:32px;height:29px;
+  text-align:center;font-size:12.5px;font-weight:700;padding:0 5px;
+}
+table.reftable th{background:#E9F0FC;color:var(--ink-soft);font-weight:800}
+table.reftable th.corner{font-family:var(--display);font-size:17px;color:var(--ink)}
+table.reftable th.rowhead{position:sticky;left:0;z-index:1}  /* stays put on wide tables */
+table.reftable td{background:var(--card);color:var(--ink)}
+table.reftable td.void{background:transparent;border-color:transparent}
+table.reftable.add th{color:var(--red)}
+table.reftable.sub th{color:var(--blue)}
+table.reftable.mul th{color:var(--green)}
+table.reftable.add th.corner,table.reftable.sub th.corner,table.reftable.mul th.corner{color:var(--ink)}
+
+/* ============================================================
    GRIDS — glossy beads
    ============================================================ */
 .gridscroll{overflow-x:auto;max-width:100%;padding-bottom:6px;
@@ -313,15 +318,14 @@ table.grid td{padding:0}
   .trophy svg{width:56px;height:64px}
   .weak{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
   .legend{gap:10px}
+  table.reftable th, table.reftable td{min-width:27px;height:26px;font-size:11.5px;padding:0 3px}
 }
 @media (max-width:400px){
   .top{gap:8px}
   .brand{font-size:20px}
   .nav button{padding:8px 9px;font-size:12px}
-  .modes button{padding:8px 11px;font-size:18px}
-  .modes button.wordy{font-size:12px}
-  .sets button{padding:8px 11px;font-size:12px}
-  #nextTrophyBtn{padding:8px 11px;font-size:12px}
+  #mode{padding:7px 9px;font-size:14px}
+  #nextTrophyBtn,#forYouBtn{padding:8px 11px;font-size:12px}
   #whoAmI{padding:8px 9px;max-width:38vw;text-overflow:ellipsis}
   .keypad{gap:8px;margin-top:20px}
   .keypad button{padding:12px 0;font-size:23px}
@@ -358,8 +362,9 @@ table.grid td{padding:0}
       <select id="whoAmI" aria-label="Who's practicing"></select>
       <div class="nav" id="nav" role="group" aria-label="View">
         <button data-view="drill">Practice</button>
-        <button data-view="progress">Progress</button>
         <button data-view="trophies">Trophies</button>
+        <button data-view="progress">Progress</button>
+        <button data-view="reference">Tables</button>
       </div>
     </header>
 
@@ -367,28 +372,27 @@ table.grid td{padding:0}
     <section id="drillView">
       <div class="controls">
         <button type="button" id="nextTrophyBtn">Next trophy</button>
-        <div class="modes" id="modes" role="group" aria-label="Operation">
-          <button data-mode="add">+</button>
-          <button data-mode="sub">−</button>
-          <button data-mode="mul">×</button>
-          <button data-mode="div">÷</button>
-          <button data-mode="mix" class="wordy">All</button>
-        </div>
-        <label>
-          <select id="range" aria-label="Number range">
-            <option value="5">up to 5</option>
-            <option value="10">up to 10</option>
-            <option value="12" selected>up to 12</option>
-          </select>
-        </label>
-      </div>
-
-      <div class="sets" id="sets" role="group" aria-label="Practice sets">
-        <button data-set="from10">10 − ?</button>
-        <button data-set="double">Double it</button>
-        <button data-set="x5">× 5</button>
-        <button data-set="x10">× 10</button>
-        <button data-set="foryou" id="forYouBtn">For you</button>
+        <select id="mode" aria-label="Operation">
+          <option value="add">+ &nbsp;Adding</option>
+          <option value="sub">− &nbsp;Taking away</option>
+          <option value="mul">× &nbsp;Times tables</option>
+          <option value="div">÷ &nbsp;Dividing</option>
+          <option value="mix">All mixed up</option>
+        </select>
+        <select id="range" aria-label="Number range">
+          <option value="5">up to 5</option>
+          <option value="10">up to 10</option>
+          <option value="12">up to 12</option>
+        </select>
+        <select id="specials" aria-label="Special set">
+          <option value="">Special sets…</option>
+          <option value="from10">10 − ?</option>
+          <option value="double">Double it</option>
+          <option value="div2">÷ 2</option>
+          <option value="x5">× 5</option>
+          <option value="x10">× 10</option>
+        </select>
+        <button type="button" id="forYouBtn">For you</button>
       </div>
       <p class="setnote" id="setNote"></p>
 
@@ -427,6 +431,30 @@ table.grid td{padding:0}
           <div class="stat"><b id="sStreak">0</b><span>streak</span></div>
           <div class="stat"><b id="sTime">—</b><span>median</span></div>
         </div>
+      </div>
+    </section>
+
+    <!-- REFERENCE -->
+    <section id="referenceView" class="hidden">
+      <div class="panel op-add">
+        <h2>Adding</h2>
+        <p class="sub">Find your first number down the side, your second along the top.</p>
+        <div class="gridscroll" id="refAdd"></div>
+      </div>
+      <div class="panel op-sub">
+        <h2>Taking away</h2>
+        <p class="sub">Find what you're taking away down the side, what you started with along the top.</p>
+        <div class="gridscroll" id="refSub"></div>
+      </div>
+      <div class="panel op-mul">
+        <h2>Times tables</h2>
+        <p class="sub">Find one number down the side, the other along the top.</p>
+        <div class="gridscroll" id="refMul"></div>
+      </div>
+      <div class="panel op-div">
+        <h2>Dividing</h2>
+        <p class="sub">Find what you're dividing by down the side, what you started with along the top. Only dividends that come out whole are listed, so it scrolls sideways.</p>
+        <div class="gridscroll" id="refDiv"></div>
       </div>
     </section>
 
@@ -470,7 +498,7 @@ table.grid td{padding:0}
 
       <div class="panel op-sub">
         <h2>Taking away</h2>
-        <p class="sub">Triangular, because you can only take away what's there.</p>
+        <p class="sub">Rows are what you take away, columns are what you start with. Every addition fact run backwards, so it reaches 24 − 12.</p>
         <div class="gridscroll" id="gridSub"></div>
       </div>
 
@@ -558,6 +586,7 @@ const newId = () => 'p' + Date.now().toString(36) + Math.random().toString(36).s
 const SIGN = { add:'+', sub:'−', mul:'×', div:'÷' };
 const OP_COLOR = { add:'var(--red)', sub:'var(--blue)', mul:'var(--green)', div:'var(--purple)' };
 const GRID_MAX = 12;
+const RANGES = [5,10,12];   /* the same three tiers for every operation */
 const seq = (lo,hi) => Array.from({length:hi-lo+1},(_,i)=>lo+i);
 const keyOf  = f => f[0]+':'+f[1]+'|'+f[2];
 const answer = f => f[0]==='add' ? f[1]+f[2] : f[0]==='sub' ? f[1]-f[2] : f[0]==='mul' ? f[1]*f[2] : f[1]/f[2];
@@ -565,7 +594,9 @@ const answer = f => f[0]==='add' ? f[1]+f[2] : f[0]==='sub' ? f[1]-f[2] : f[0]==
 function pool(mode, M){
   const out = [];
   if (mode === 'add') { for(let b=0;b<=M;b++) for(let a=0;a<=M;a++) out.push(['add',a,b]); }
-  if (mode === 'sub') { for(let s=0;s<=M;s++) for(let m=s;m<=M;m++) out.push(['sub',m,s]); }
+  /* subtraction mirrors addition: every sum a+b in range, taken back apart.
+     So M=10 reaches 19 − 10, not just 10 − 10. */
+  if (mode === 'sub') { for(let b=0;b<=M;b++) for(let a=0;a<=M;a++) out.push(['sub',a+b,b]); }
   if (mode === 'mul') { for(let b=0;b<=M;b++) for(let a=0;a<=M;a++) out.push(['mul',a,b]); }
   if (mode === 'div') { for(let v=1;v<=M;v++) for(let q=0;q<=M;q++) out.push(['div',q*v,v]); }
   if (mode === 'mix') { ['add','sub','mul','div'].forEach(m => out.push(...pool(m,M))); }
@@ -573,7 +604,7 @@ function pool(mode, M){
 }
 function familyPool(op, n){
   if (op === 'add') return seq(0,GRID_MAX).map(a => ['add',a,n]);
-  if (op === 'sub') return seq(n,GRID_MAX).map(m => ['sub',m,n]);
+  if (op === 'sub') return seq(0,GRID_MAX).map(a => ['sub',a+n,n]);   /* every "− n" fact */
   if (op === 'mul') return seq(0,GRID_MAX).map(a => ['mul',a,n]);
   return seq(0,GRID_MAX).map(q => ['div',q*n,n]);
 }
@@ -588,6 +619,7 @@ const familyTag = (op,n) => SIGN[op] + n;
 const SETS = {
   from10: { note:'Taking away from 10 — the pairs that make ten.', pool:()=>seq(0,10).map(s=>['sub',10,s]) },
   double: { note:'Doubles, 0 + 0 up to 12 + 12. This is the diagonal of the adding grid.', pool:()=>seq(0,GRID_MAX).map(a=>['add',a,a]) },
+  div2:   { note:'Halving — the doubles run backwards, 0 ÷ 2 up to 24 ÷ 2.', pool:()=>seq(0,GRID_MAX).map(q=>['div',q*2,2]) },
   x5:     { note:'The 5 times table.',  pool:()=>seq(0,GRID_MAX).map(a=>['mul',a,5]) },
   x10:    { note:'The 10 times table.', pool:()=>seq(0,GRID_MAX).map(a=>['mul',a,10]) }
 };
@@ -681,7 +713,6 @@ const METAL = {
 };
 const VOLUME       = [10, 50, 100, 500, 1000, 5000, 10000];
 const VOLUME_METAL = ['bronze','bronze','silver','silver','gold','gold','gem'];
-const RANGE_METAL  = { 5:'bronze', 10:'silver', 12:'gold' };
 const shortNum = n => n >= 1000 ? (n/1000) + 'K' : String(n);
 
 const OP_TROPHIES = [
@@ -697,14 +728,18 @@ const TROPHIES = [
     tag:shortNum(n), name:n.toLocaleString()+' answered',
     goal: () => ({ have: answeredTotal, need: n })
   })),
-  ...OP_TROPHIES.flatMap(({op, group, word}) =>
-    [5,10,12].map(M => ({
-      id:op+M, group, kind:'cup', metal:RANGE_METAL[M],
+  ...OP_TROPHIES.flatMap(({op, group, word}) => {
+    const tiers  = RANGES;
+    const metals = tiers.length === 2 ? ['bronze','gold'] : ['bronze','silver','gold'];
+    return tiers.map((M,i) => ({
+      id:op+M, group, kind:'cup', metal:metals[i],
       tag:SIGN[op]+M, name:word+' '+M,
       goal: factGoal(pool(op, M))
-    }))),
+    }));
+  }),
   { id:'set_from10', group:'Special sets', kind:'medal', metal:'silver', tag:'10−', name:'Making ten',       goal: factGoal(SETS.from10.pool()) },
   { id:'set_double', group:'Special sets', kind:'medal', metal:'bronze', tag:'2×',  name:'Doubles',          goal: factGoal(SETS.double.pool()) },
+  { id:'set_div2',   group:'Special sets', kind:'medal', metal:'bronze', tag:'÷2',  name:'Halving',          goal: factGoal(SETS.div2.pool()) },
   { id:'set_x5',     group:'Special sets', kind:'medal', metal:'gold',   tag:'×5',  name:'Five times table', goal: factGoal(SETS.x5.pool()) },
   { id:'set_x10',    group:'Special sets', kind:'medal', metal:'gem',    tag:'×10', name:'Ten times table',  goal: factGoal(SETS.x10.pool()) }
 ];
@@ -716,7 +751,7 @@ const GROUP_ORDER = ['Practice','Adding','Taking away','Times tables','Dividing'
    in teaching order — all of adding, then taking away, then
    times tables, then dividing, each 5 → 10 → 12.
    ============================================================ */
-const LADDER = OP_TROPHIES.flatMap(({op}) => [5,10,12].map(max => ({ mode:op, max })));
+const LADDER = OP_TROPHIES.flatMap(({op}) => RANGES.map(max => ({ mode:op, max })));
 const nextRung = () => LADDER.find(r => !data.trophies[r.mode + r.max]) || null;
 /* where the ladder says we should be right now */
 const ladderTarget = () => {
@@ -968,11 +1003,48 @@ function renderSession(){
 /* ============================================================
    CONTROLS
    ============================================================ */
+/* the range tiers depend on the operation, so rebuild the dropdown each sync */
+function renderRangeOptions(){
+  const list = RANGES;
+  if (!list.includes(data.max)){
+    data.max = list.reduce((best,n) => n <= data.max ? n : best, list[0]);
+    save();
+  }
+  const sel = el('range');
+  sel.replaceChildren(...list.map(n => {
+    const o = document.createElement('option');
+    o.value = n; o.textContent = 'up to ' + n;
+    return o;
+  }));
+  sel.value = String(data.max);
+}
+
+/* each operation keeps its colour, now carried by the dropdown itself */
+const SEL_COLOR = { add:'var(--red)', sub:'var(--blue)', mul:'var(--green)',
+                    div:'var(--purple)', mix:'var(--orange)' };
+const SET_COLOR = { from10:'var(--blue)', double:'var(--red)', div2:'var(--purple)',
+                    x5:'var(--green)', x10:'var(--green)' };
+
 function syncControls(){
-  [...el('modes').children].forEach(b =>
-    b.setAttribute('aria-pressed', String(!data.set && b.dataset.mode === data.mode)));
-  [...el('sets').children].forEach(b =>
-    b.setAttribute('aria-pressed', String(b.dataset.set === data.set)));
+  renderRangeOptions();
+  const onSet = !!data.set;                       /* a special set overrides operation + range */
+  const modeSel = el('mode'), spSel = el('specials');
+
+  modeSel.value = data.mode;
+  modeSel.disabled = onSet;
+  modeSel.style.color = onSet ? '' : SEL_COLOR[data.mode];
+  modeSel.style.borderColor = onSet ? '' : SEL_COLOR[data.mode];
+
+  spSel.value = (data.set && data.set !== 'foryou') ? data.set : '';
+  spSel.style.color = spSel.value ? SET_COLOR[spSel.value] : '';
+  spSel.style.borderColor = spSel.value ? SET_COLOR[spSel.value] : '';
+
+  el('range').disabled = onSet;
+  el('range').title = onSet ? 'Special sets bring their own range' : '';
+
+  el('forYouBtn').setAttribute('aria-pressed', String(data.set === 'foryou'));
+  el('forYouBtn').textContent = (data.set === 'foryou' && data.foryou)
+    ? 'For you · ' + familyTag(data.foryou.op, data.foryou.n) : 'For you';
 
   /* not a set — lit when the current selection came from the ladder */
   const lt = ladderTarget();
@@ -981,11 +1053,6 @@ function syncControls(){
     ? 'Next trophy · ' + SIGN[lt.rung.mode] + ' ≤' + lt.rung.max
     : 'Next trophy';
 
-  el('range').disabled = !!data.set;
-  el('range').title = data.set ? 'Practice sets bring their own range' : '';
-  el('forYouBtn').textContent = (data.set === 'foryou' && data.foryou)
-    ? 'For you · ' + familyTag(data.foryou.op, data.foryou.n) : 'For you';
-
   const note = el('setNote');
   note.classList.remove('warn');
   if (data.set === 'foryou' && data.foryou) note.textContent = FAMILY_NOTE[data.foryou.op](data.foryou.n) + ' Tap again to re-check.';
@@ -993,21 +1060,23 @@ function syncControls(){
   else                                      note.textContent = startNote;
 }
 
-el('modes').addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b) return;
-  data.mode = b.dataset.mode; data.set = null; startNote = '';
-  save(); syncControls(); rebuild();
-});
 el('nextTrophyBtn').addEventListener('click', () => {
   applyLadder();                       /* jump to the next unwon rung */
-  el('range').value = String(data.max);
   syncControls(); rebuild();
 });
-el('sets').addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b) return;
-  const s = b.dataset.set;
-
-  if (s === 'foryou'){
+el('mode').addEventListener('change', e => {
+  data.mode = e.target.value; data.set = null; startNote = '';
+  save(); syncControls(); rebuild();
+});
+el('specials').addEventListener('change', e => {
+  data.set = e.target.value || null; startNote = '';
+  save(); syncControls(); rebuild();
+});
+el('forYouBtn').addEventListener('click', () => {
+  if (data.set === 'foryou'){                    /* pressed again — recheck the weakest row */
+    const again = weakestFamily();
+    if (again) data.foryou = { op:again.op, n:again.n };
+  } else {
     const found = weakestFamily();
     if (!found){
       const note = el('setNote');
@@ -1016,8 +1085,6 @@ el('sets').addEventListener('click', e => {
       return;
     }
     data.set = 'foryou'; data.foryou = { op:found.op, n:found.n };
-  } else {
-    data.set = (data.set === s) ? null : s;
   }
   startNote = '';
   save(); syncControls(); rebuild();
@@ -1027,12 +1094,13 @@ el('range').addEventListener('change', e => {
   save(); syncControls(); rebuild();
 });
 
-const VIEWS = { drill:'drillView', progress:'progressView', trophies:'trophyView' };
+const VIEWS = { drill:'drillView', reference:'referenceView', progress:'progressView', trophies:'trophyView' };
 function showView(name){
   Object.entries(VIEWS).forEach(([k,id]) => el(id).classList.toggle('hidden', k !== name));
   [...el('nav').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === name)));
-  if (name === 'progress') renderProgress();
-  if (name === 'trophies') renderTrophies();
+  if (name === 'progress')  renderProgress();
+  if (name === 'trophies')  renderTrophies();
+  if (name === 'reference') renderReference();
   /* drop focus from any control so digits reach the document handler */
   if (name === 'drill' && document.activeElement) document.activeElement.blur();
 }
@@ -1066,7 +1134,6 @@ function switchTo(id){
   answeredTotal = totalAnswered();
   checkTrophies(true);
   applyLadder();                       /* pick the starting point before the UI syncs */
-  el('range').value = String(data.max);
   renderWho(); renderSession(); syncControls(); rebuild();
   showView('drill');
 }
@@ -1093,7 +1160,6 @@ el('resetBtn').addEventListener('click', () => {
   answeredTotal = 0;
   store.del(NS+':'+profileId);
   applyLadder();                       /* trophies are gone, so drop back to the first rung */
-  el('range').value = String(data.max);
   session.n = session.correct = session.streak = 0; session.times.length = 0;
   renderSession(); syncControls(); renderProgress(); rebuild();
 });
@@ -1130,6 +1196,55 @@ el('gateGo').addEventListener('click', () => {
   enterApp(addProfile(name));
 });
 el('gateName').addEventListener('keydown', e => { if (e.key === 'Enter') el('gateGo').click(); });
+
+/* ============================================================
+   REFERENCE TABLES — answers filled in, no mastery colouring
+   ============================================================ */
+function refTable(op, M){
+  const t = document.createElement('table');
+  t.className = 'reftable ' + op;
+
+  const rows = op === 'div' ? seq(1, M) : seq(0, M);
+  let cols;
+  if (op === 'sub')      cols = seq(0, 2*M);                       /* reaches 24 */
+  else if (op === 'div') cols = seq(0, M*M)                        /* skip dividends no divisor reaches */
+                                  .filter(d => rows.some(v => d % v === 0 && d/v <= M));
+  else                   cols = seq(0, M);
+
+  const head = document.createElement('tr');
+  const corner = document.createElement('th');
+  corner.className = 'corner'; corner.textContent = SIGN[op];
+  head.appendChild(corner);
+  cols.forEach(c => { const th = document.createElement('th'); th.textContent = c; head.appendChild(th); });
+  t.appendChild(head);
+
+  for (const r of rows){
+    const tr = document.createElement('tr');
+    const th = document.createElement('th');
+    th.className = 'rowhead'; th.textContent = SIGN[op] + r;
+    tr.appendChild(th);
+    for (const c of cols){
+      const td = document.createElement('td');
+      if (op === 'sub'){
+        const d = c - r;
+        if (d >= 0 && d <= M) td.textContent = d; else td.className = 'void';
+      } else if (op === 'div'){
+        if (c % r === 0 && c/r <= M) td.textContent = c/r; else td.className = 'void';
+      } else {
+        td.textContent = op === 'add' ? c + r : c * r;
+      }
+      tr.appendChild(td);
+    }
+    t.appendChild(tr);
+  }
+  return t;
+}
+function renderReference(){
+  el('refAdd').replaceChildren(refTable('add', GRID_MAX));
+  el('refSub').replaceChildren(refTable('sub', GRID_MAX));
+  el('refMul').replaceChildren(refTable('mul', GRID_MAX));
+  el('refDiv').replaceChildren(refTable('div', GRID_MAX));
+}
 
 /* ============================================================
    PROGRESS GRIDS
@@ -1176,14 +1291,20 @@ function buildSquare(target, op, M){
   }
   target.replaceChildren(t);
 }
+/* rows = what you take away, columns = what you start with.
+   Facts run from m − s where both s and the answer sit in 0..M,
+   which draws a diagonal band rather than a triangle. */
 function buildSub(target, M){
   const t = document.createElement('table'); t.className='grid';
-  t.appendChild(headerRow(seq(0,M)));
+  t.appendChild(headerRow(seq(0,2*M)));
   for (let s=0;s<=M;s++){
     const tr = document.createElement('tr');
     const th = document.createElement('th'); th.className='row sub'; th.textContent = '−'+s;
     tr.appendChild(th);
-    for (let m=0;m<=M;m++) tr.appendChild(m >= s ? cellFor('sub',m,s) : blank('void'));
+    for (let m=0;m<=2*M;m++){
+      const diff = m - s;
+      tr.appendChild(diff >= 0 && diff <= M ? cellFor('sub',m,s) : blank('void'));
+    }
     t.appendChild(tr);
   }
   target.replaceChildren(t);
