@@ -5,22 +5,41 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #fff;
+      --fg: #000;
+      --rule: #000;
+      --link: #0000cc;
+      --link-visited: #551a8b;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #161616;
+        --fg: #e8e8e8;
+        --rule: #6a6a6a;
+        --link: #7fb3ff;
+        --link-visited: #c5a3ff;
+      }
+    }
+
     * { box-sizing: border-box; }
 
     body {
       margin: 0 auto;
       max-width: 860px;
       padding: 24px 16px 48px;
-      background: #fff;
-      color: #000;
+      background: var(--bg);
+      color: var(--fg);
       font-family: Verdana, Tahoma, Geneva, sans-serif;
       font-size: 14px;
       line-height: 1.5;
       -webkit-text-size-adjust: 100%;
     }
 
-    a { color: #0000cc; }
-    a:visited { color: #551a8b; }
+    a { color: var(--link); }
+    a:visited { color: var(--link-visited); }
 
     h1 {
       margin: 0 0 6px;
@@ -41,7 +60,7 @@
 
     .nav li:not(:last-child)::after {
       content: "|";
-      color: #000;
+      color: var(--fg);
       margin-left: 8px;
     }
 
@@ -49,7 +68,7 @@
     fieldset {
       margin: 0 0 24px;
       padding: 10px 14px 14px;
-      border: 1px solid #000;
+      border: 1px solid var(--rule);
     }
 
     legend {
@@ -82,7 +101,7 @@
       width: 170px;
       max-width: 100%;
       height: auto;
-      border: 1px solid #000;
+      border: 1px solid var(--rule);
     }
 
     .about .bio { flex: 1 1 320px; }
