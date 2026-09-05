@@ -91,34 +91,38 @@ select:disabled{opacity:.45;cursor:not-allowed}
    ============================================================ */
 .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
 #mode{font-family:var(--display);font-weight:700;font-size:15px;padding:8px 11px}
-#mode:disabled,#range:disabled{opacity:.45}
 /* each choice carries its own colour in the open list, not just the selected one */
 #mode option[value="add"]{color:var(--red)}
 #mode option[value="sub"]{color:var(--blue)}
 #mode option[value="mul"]{color:var(--green)}
 #mode option[value="div"]{color:var(--purple)}
 #mode option[value="mix"]{color:var(--orange)}
-#specials option[value="from10"]{color:var(--blue)}
-#specials option[value="double"]{color:var(--red)}
-#specials option[value="div2"]{color:var(--purple)}
-#specials option[value="x5"],#specials option[value="x10"]{color:var(--green)}
-#specials option[value=""]{color:var(--ink-soft)}
 
-/* pill buttons that sit in the controls row */
-#nextTrophyBtn,#forYouBtn{
+/* pill button that sits in the controls row */
+#warmupBtn{
   font-family:var(--sans);font-weight:700;font-size:13px;line-height:1;
   padding:9px 14px;border:2px solid var(--rule);border-radius:999px;
   background:var(--card);color:var(--ink-soft);cursor:pointer;
   transition:background .12s,color .12s;
 }
-#nextTrophyBtn:hover,#forYouBtn:hover{background:#F0F5FF;color:var(--ink)}
-#nextTrophyBtn[aria-pressed="true"]{background:var(--yellow);border-color:#E0A800;color:var(--ink)}
-#nextTrophyBtn[aria-pressed="true"]:hover{background:#FFD44F}
-#forYouBtn[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#fff}
-#forYouBtn[aria-pressed="true"]:hover{background:#F57C2A}
+#warmupBtn:hover{background:#F0F5FF;color:var(--ink)}
+#warmupBtn[aria-pressed="true"]{background:var(--yellow);border-color:#E0A800;color:var(--ink)}
+#warmupBtn[aria-pressed="true"]:hover{background:#FFD44F}
+
+/* the headline call to action */
+#goForItBtn{
+  font-family:var(--display);font-weight:800;font-size:15px;line-height:1;
+  padding:10px 17px;border:2px solid #E0A800;border-radius:999px;
+  background:var(--yellow);color:var(--ink);cursor:pointer;
+  box-shadow:0 4px 0 rgba(27,42,74,.16);
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+#goForItBtn:hover{background:#FFD44F}
+#goForItBtn:active{transform:translateY(4px);box-shadow:none}
+#goForItBtn[aria-pressed="true"]{background:var(--orange);border-color:#D9661E;color:#fff}
+#goForItBtn[aria-pressed="true"]:hover{background:#F57C2A}
 
 .setnote{font-size:12.5px;color:var(--ink-soft);margin:0 0 18px;min-height:1.2em}
-.setnote.warn{color:var(--red)}
 
 /* ============================================================
    THE WORKSHEET
@@ -252,6 +256,50 @@ select:disabled{opacity:.45;cursor:not-allowed}
 @keyframes pop{from{transform:translateY(16px) scale(.8);opacity:0}to{transform:none;opacity:1}}
 
 /* ============================================================
+   TIMED TEST
+   ============================================================ */
+.testtop{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.pill{
+  font-size:12px;font-weight:800;letter-spacing:.02em;
+  border:2px solid var(--rule);border-radius:999px;padding:8px 13px;background:var(--card);
+  color:var(--ink-soft);font-variant-numeric:tabular-nums;
+}
+.pill.pass{border-color:var(--green);color:#1B7A38;background:#E9FBEF}
+
+.stage{width:100%;display:flex;flex-direction:column;align-items:center}
+.bigname{font-family:var(--display);font-weight:800;font-size:clamp(26px,7vw,40px);line-height:1.1;text-align:center}
+.bigsub{font-size:13.5px;color:var(--ink-soft);text-align:center;margin:10px 0 0;max-width:34ch}
+.bigstart{
+  font-family:var(--display);font-weight:800;font-size:26px;line-height:1;
+  margin-top:26px;padding:18px 46px;border:2px solid #25A14A;border-radius:20px;
+  background:var(--green);color:#fff;cursor:pointer;box-shadow:0 6px 0 #1E8A3E;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+}
+.bigstart:hover{background:#2AAE53}
+.bigstart:active{transform:translateY(6px);box-shadow:none}
+
+.timerbar{height:14px;border-radius:999px;background:var(--rule);overflow:hidden;width:100%;max-width:440px}
+.timerbar i{display:block;height:100%;width:100%;background:var(--green);border-radius:999px}
+.timerbar.low i{background:var(--red)}
+.timerrow{
+  display:flex;align-items:baseline;justify-content:center;gap:22px;width:100%;max-width:440px;
+  margin:0 0 20px;font-variant-numeric:tabular-nums;
+}
+.timerrow b{font-family:var(--display);font-size:26px;font-weight:700}
+.timerrow span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.timerrow .cell2{text-align:center}
+
+.score{font-family:var(--display);font-weight:800;font-size:clamp(64px,18vw,110px);line-height:1;color:var(--blue)}
+.score.pass{color:var(--green)}
+.scorecap{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.verdict{font-family:var(--display);font-weight:700;font-size:clamp(18px,4.4vw,24px);text-align:center;margin-top:14px}
+.verdict.pass{color:var(--green)}
+.resultnote{font-size:13px;color:var(--ink-soft);text-align:center;margin:8px 0 0}
+.wonrow{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+.againrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:26px}
+.againrow .btn{font-size:14px;padding:11px 18px;border-radius:14px}
+
+/* ============================================================
    REFERENCE TABLES
    ============================================================ */
 table.reftable{border-collapse:collapse;font-variant-numeric:tabular-nums}
@@ -293,6 +341,21 @@ table.grid td{padding:0}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:11.5px;color:var(--ink-soft);align-items:center;font-weight:700}
 .legend i{display:inline-block;width:13px;height:13px;border-radius:4px;margin-right:5px;vertical-align:-2px}
 
+/* one-minute test results, filed under the operation they belong to */
+.runs{list-style:none;padding:0;margin:0 0 18px;display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:9px}
+.runs li{display:flex;align-items:center;gap:12px;border:2px solid var(--rule);border-radius:12px;padding:7px 13px}
+.runs li.pass{border-color:var(--green);background:#F4FDF7}
+.runs .lbl{font-size:12.5px;font-weight:700;flex:1;text-align:left;line-height:1.25}
+.runs .lbl em{display:block;font-style:normal;font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-soft)}
+.runs .pair{text-align:center;min-width:44px}
+.runs .pair b{display:block;font-family:var(--display);font-size:20px;font-weight:700;
+  line-height:1.1;font-variant-numeric:tabular-nums}
+.runs .pair.none b{color:var(--ink-soft)}
+.runs .pair span{font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:700}
+
 .weak{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:9px}
 .weak li{display:flex;align-items:center;gap:10px;border:2px solid var(--rule);border-radius:12px;padding:8px 12px}
 .weak .dot{width:14px;height:14px;border-radius:50%;flex:none;
@@ -325,7 +388,8 @@ table.grid td{padding:0}
   .brand{font-size:20px}
   .nav button{padding:8px 9px;font-size:12px}
   #mode{padding:7px 9px;font-size:14px}
-  #nextTrophyBtn,#forYouBtn{padding:8px 11px;font-size:12px}
+  #warmupBtn{padding:8px 11px;font-size:12px}
+  #goForItBtn{padding:9px 13px;font-size:14px}
   #whoAmI{padding:8px 9px;max-width:38vw;text-overflow:ellipsis}
   .keypad{gap:8px;margin-top:20px}
   .keypad button{padding:12px 0;font-size:23px}
@@ -364,14 +428,14 @@ table.grid td{padding:0}
         <button data-view="drill">Practice</button>
         <button data-view="trophies">Trophies</button>
         <button data-view="progress">Progress</button>
-        <button data-view="reference">Tables</button>
       </div>
+      <button type="button" id="goForItBtn">Go for it!</button>
     </header>
 
     <!-- DRILL -->
     <section id="drillView">
       <div class="controls">
-        <button type="button" id="nextTrophyBtn">Next trophy</button>
+        <button type="button" id="warmupBtn">Warm up</button>
         <select id="mode" aria-label="Operation">
           <option value="add">+ &nbsp;Adding</option>
           <option value="sub">− &nbsp;Taking away</option>
@@ -384,15 +448,6 @@ table.grid td{padding:0}
           <option value="10">up to 10</option>
           <option value="12">up to 12</option>
         </select>
-        <select id="specials" aria-label="Special set">
-          <option value="">Special sets…</option>
-          <option value="from10">10 − ?</option>
-          <option value="double">Double it</option>
-          <option value="div2">÷ 2</option>
-          <option value="x5">× 5</option>
-          <option value="x10">× 10</option>
-        </select>
-        <button type="button" id="forYouBtn">For you</button>
       </div>
       <p class="setnote" id="setNote"></p>
 
@@ -434,27 +489,74 @@ table.grid td{padding:0}
       </div>
     </section>
 
-    <!-- REFERENCE -->
-    <section id="referenceView" class="hidden">
-      <div class="panel op-add">
-        <h2>Adding</h2>
-        <p class="sub">Find your first number down the side, your second along the top.</p>
-        <div class="gridscroll" id="refAdd"></div>
+    <!-- TIMED TEST -->
+    <section id="testView" class="hidden">
+      <div class="testtop">
+        <select id="testPick" aria-label="Which test"></select>
+        <span class="pill" id="testBest">—</span>
       </div>
-      <div class="panel op-sub">
-        <h2>Taking away</h2>
-        <p class="sub">Find what you're taking away down the side, what you started with along the top.</p>
-        <div class="gridscroll" id="refSub"></div>
-      </div>
-      <div class="panel op-mul">
-        <h2>Times tables</h2>
-        <p class="sub">Find one number down the side, the other along the top.</p>
-        <div class="gridscroll" id="refMul"></div>
-      </div>
-      <div class="panel op-div">
-        <h2>Dividing</h2>
-        <p class="sub">Find what you're dividing by down the side, what you started with along the top. Only dividends that come out whole are listed, so it scrolls sideways.</p>
-        <div class="gridscroll" id="refDiv"></div>
+      <p class="setnote" id="testNote"></p>
+
+      <div class="sheet" id="tSheet">
+
+        <!-- before the clock starts -->
+        <div class="stage" id="testStart">
+          <div class="bigname" id="testName">Adding up to 5</div>
+          <p class="bigsub" id="testBlurb">One minute. Answer as many as you can — 20 right means you pass.</p>
+          <button type="button" class="bigstart" id="startBtn">Start</button>
+        </div>
+
+        <!-- clock running -->
+        <div class="stage hidden" id="testRun">
+          <div class="timerbar" id="timerBar"><i id="timerFill"></i></div>
+          <div class="timerrow">
+            <div class="cell2"><b id="tLeft">60</b><br><span>seconds left</span></div>
+            <div class="cell2"><b id="tRight">0</b><br><span>right</span></div>
+          </div>
+
+          <div class="problem">
+            <div class="spacer"></div><div class="num" id="tOpA">7</div>
+            <div class="op" id="tOpSign">×</div><div class="num" id="tOpB">8</div>
+            <div class="answerline"></div>
+            <div class="entry typing" id="tAnswer" role="status" aria-live="polite" aria-label="Your answer">
+              <span class="typed" id="tAnswerText"></span><i class="caret"></i>
+            </div>
+          </div>
+
+          <div class="correction blank" id="tCorrection">
+            <span id="tCorrectVal"></span>
+            <span class="hint">Keep going</span>
+          </div>
+
+          <div class="keypad" id="tKeypad" role="group" aria-label="Number keypad">
+            <button type="button" tabindex="-1" data-k="1">1</button>
+            <button type="button" tabindex="-1" data-k="2">2</button>
+            <button type="button" tabindex="-1" data-k="3">3</button>
+            <button type="button" tabindex="-1" data-k="4">4</button>
+            <button type="button" tabindex="-1" data-k="5">5</button>
+            <button type="button" tabindex="-1" data-k="6">6</button>
+            <button type="button" tabindex="-1" data-k="7">7</button>
+            <button type="button" tabindex="-1" data-k="8">8</button>
+            <button type="button" tabindex="-1" data-k="9">9</button>
+            <button type="button" tabindex="-1" data-k="del" class="del" aria-label="Delete">⌫</button>
+            <button type="button" tabindex="-1" data-k="0">0</button>
+            <button type="button" tabindex="-1" data-k="go" class="go" aria-label="Check answer">✓</button>
+          </div>
+        </div>
+
+        <!-- time's up -->
+        <div class="stage hidden" id="testDone">
+          <div class="scorecap">right in one minute</div>
+          <div class="score" id="doneScore">0</div>
+          <div class="verdict" id="doneVerdict"></div>
+          <p class="resultnote" id="doneNote"></p>
+          <div class="wonrow" id="doneWon"></div>
+          <div class="againrow">
+            <button type="button" class="btn solid" id="againBtn">Go again</button>
+            <button type="button" class="btn" id="nextTestBtn">Next test</button>
+            <button type="button" class="btn" id="backToPracticeBtn">Back to practice</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -466,8 +568,9 @@ table.grid td{padding:0}
         <div id="trophyHost"></div>
       </div>
       <div class="panel op-star">
-        <p class="sub" style="margin:0">A fact counts as learned once you've answered it right at least twice,
-          quickly and without a recent slip. Outlined trophies show how many you've got so far.</p>
+        <p class="sub" style="margin:0">Trophies come from the one-minute tests behind <b>Go for it!</b> —
+          one for 10 right in a minute, then 20, 30 and 40. Twenty means you pass: clear it and the next
+          test unlocks. Outlined trophies show your best run so far.</p>
       </div>
     </section>
 
@@ -492,25 +595,29 @@ table.grid td{padding:0}
 
       <div class="panel op-add">
         <h2>Adding</h2>
-        <p class="sub">Rows are what you add. Columns are what you add it to. The diagonal is the doubles.</p>
+        <p class="sub">Best and most recent one-minute tests. Rows are what you add, columns are what you add it to. The diagonal is the doubles.</p>
+        <ul class="runs" id="runsAdd"></ul>
         <div class="gridscroll" id="gridAdd"></div>
       </div>
 
       <div class="panel op-sub">
         <h2>Taking away</h2>
-        <p class="sub">Rows are what you take away, columns are what you start with. Every addition fact run backwards, so it reaches 24 − 12.</p>
+        <p class="sub">Best and most recent one-minute tests. Rows are what you take away, columns are what you start with. Every addition fact run backwards, so it reaches 24 − 12.</p>
+        <ul class="runs" id="runsSub"></ul>
         <div class="gridscroll" id="gridSub"></div>
       </div>
 
       <div class="panel op-mul">
         <h2>Times tables</h2>
-        <p class="sub">The table, coloured in.</p>
+        <p class="sub">Best and most recent one-minute tests, then the table coloured in.</p>
+        <ul class="runs" id="runsMul"></ul>
         <div class="gridscroll" id="gridMul"></div>
       </div>
 
       <div class="panel op-div">
         <h2>Dividing</h2>
-        <p class="sub">Every dividend across, every divisor down — blank where it doesn't divide evenly. Scrolls sideways.</p>
+        <p class="sub">Best and most recent one-minute tests. Every dividend across, every divisor down — blank where it doesn't divide evenly. Scrolls sideways.</p>
+        <ul class="runs" id="runsDiv"></ul>
         <div class="gridscroll" id="gridDiv"></div>
         <div class="legend">
           <span><i class="cell outofrange"></i>divides, but outside the range</span>
@@ -529,6 +636,29 @@ table.grid td{padding:0}
             <button class="btn ghost" id="removeBtn">Remove person</button>
           </span>
         </div>
+      </div>
+
+      <div class="trophygroup">Tables of answers</div>
+
+      <div class="panel op-add">
+        <h2>Adding</h2>
+        <p class="sub">Find your first number down the side, your second along the top.</p>
+        <div class="gridscroll" id="refAdd"></div>
+      </div>
+      <div class="panel op-sub">
+        <h2>Taking away</h2>
+        <p class="sub">Find what you're taking away down the side, what you started with along the top.</p>
+        <div class="gridscroll" id="refSub"></div>
+      </div>
+      <div class="panel op-mul">
+        <h2>Times tables</h2>
+        <p class="sub">Find one number down the side, the other along the top.</p>
+        <div class="gridscroll" id="refMul"></div>
+      </div>
+      <div class="panel op-div">
+        <h2>Dividing</h2>
+        <p class="sub">Find what you're dividing by down the side, what you started with along the top. Only dividends that come out whole are listed, so it scrolls sideways.</p>
+        <div class="gridscroll" id="refDiv"></div>
       </div>
     </section>
   </div>
@@ -563,7 +693,7 @@ function readProfiles(){
 }
 const writeProfiles = () => { try{ store.set(NS+':profiles', JSON.stringify(profiles)); }catch(e){} };
 
-function blankData(){ return { facts:{}, trophies:{}, mode:'add', max:5, set:null, foryou:null }; }
+function blankData(){ return { facts:{}, trophies:{}, tests:{}, mode:'add', max:5, set:null }; }
 function openProfile(id){
   profileId = id;
   try {
@@ -572,6 +702,7 @@ function openProfile(id){
     data = (d && d.facts) ? Object.assign(blankData(), d) : blankData();
   } catch(e){ data = blankData(); }
   if (!data.trophies) data.trophies = {};
+  if (!data.tests)    data.tests = {};   /* best one-minute run per test */
 }
 let saveTimer = null;
 function save(){
@@ -602,33 +733,17 @@ function pool(mode, M){
   if (mode === 'mix') { ['add','sub','mul','div'].forEach(m => out.push(...pool(m,M))); }
   return out;
 }
-function familyPool(op, n){
-  if (op === 'add') return seq(0,GRID_MAX).map(a => ['add',a,n]);
-  if (op === 'sub') return seq(0,GRID_MAX).map(a => ['sub',a+n,n]);   /* every "− n" fact */
-  if (op === 'mul') return seq(0,GRID_MAX).map(a => ['mul',a,n]);
-  return seq(0,GRID_MAX).map(q => ['div',q*n,n]);
-}
-const FAMILY_NOTE = {
-  add: n => `Adding ${n} — your shakiest family right now.`,
-  sub: n => `Taking ${n} away — your shakiest family right now.`,
-  mul: n => `The ${n} times table — your shakiest family right now.`,
-  div: n => `Dividing by ${n} — your shakiest family right now.`
-};
-const familyTag = (op,n) => SIGN[op] + n;
-
+/* the two sets that aren't a plain operation-and-range; warming up for
+   their tests is the only thing that puts practice on one of them */
 const SETS = {
   from10: { note:'Taking away from 10 — the pairs that make ten.', pool:()=>seq(0,10).map(s=>['sub',10,s]) },
-  double: { note:'Doubles, 0 + 0 up to 12 + 12. This is the diagonal of the adding grid.', pool:()=>seq(0,GRID_MAX).map(a=>['add',a,a]) },
-  div2:   { note:'Halving — the doubles run backwards, 0 ÷ 2 up to 24 ÷ 2.', pool:()=>seq(0,GRID_MAX).map(q=>['div',q*2,2]) },
-  x5:     { note:'The 5 times table.',  pool:()=>seq(0,GRID_MAX).map(a=>['mul',a,5]) },
-  x10:    { note:'The 10 times table.', pool:()=>seq(0,GRID_MAX).map(a=>['mul',a,10]) }
+  double: { note:'Doubles, 0 + 0 up to 12 + 12. This is the diagonal of the adding grid.', pool:()=>seq(0,GRID_MAX).map(a=>['add',a,a]) }
 };
 
 /* ============================================================
    WEIGHTING
    ============================================================ */
 const NEW_W = 3, MIN_W = 0.3, MAX_W = 6, TARGET_MS = 4000, NO_REPEAT = 6;
-const recent = [];
 const clamp = (x,lo,hi) => x < lo ? lo : x > hi ? hi : x;
 
 function weight(rec, now){
@@ -638,12 +753,12 @@ function weight(rec, now){
   const stale = clamp((now - rec.t) / (20*60*1000), 0, 1);
   return clamp(0.4 + (1-acc)*5 + slow*1.5 + stale*0.8, MIN_W, MAX_W);
 }
-function pick(){
+function pick(list, recent){
   const now = Date.now();
-  const gap = Math.min(NO_REPEAT, Math.max(1, Math.floor(currentPool.length/3)));
+  const gap = Math.min(NO_REPEAT, Math.max(1, Math.floor(list.length/3)));
   const blocked = new Set(recent.slice(-gap));
-  let candidates = currentPool.filter(f => !blocked.has(keyOf(f)));
-  if (!candidates.length) candidates = currentPool;
+  let candidates = list.filter(f => !blocked.has(keyOf(f)));
+  if (!candidates.length) candidates = list;
   const w = candidates.map(f => weight(data.facts[keyOf(f)], now));
   let roll = Math.random() * w.reduce((a,b)=>a+b,0);
   for (let i=0;i<candidates.length;i++){ roll -= w[i]; if (roll <= 0) return candidates[i]; }
@@ -676,34 +791,38 @@ function binFor(rec){
   return BINS.find(b => m < b.max) || BINS[BINS.length-1];
 }
 
-const MIN_FACTS = 3, MIN_TRIES = 5;
-function weakestFamily(){
-  let best = null;
-  for (const op of ['add','sub','mul','div']){
-    for (let n = (op==='div'?1:0); n <= GRID_MAX; n++){
-      let sum = 0, seen = 0, tries = 0;
-      for (const f of familyPool(op,n)){
-        const rec = data.facts[keyOf(f)];
-        if (!rec || !rec.s) continue;
-        sum += mastery(rec); seen++; tries += rec.s;
-      }
-      if (seen < MIN_FACTS || tries < MIN_TRIES) continue;
-      const score = sum / seen;
-      if (!best || score < best.score || (score === best.score && tries > best.tries))
-        best = { op, n, score, tries };
-    }
-  }
-  return best;
-}
+/* ============================================================
+   THE TESTS — one minute each, in teaching order.
+   Competency is 20 right inside the minute; that's what
+   "the next test" walks forward through.
+   ============================================================ */
+const TEST_SECONDS = 60, PASS = 20;
+const RATES = [10, 20, 30, 40];
+
+/* grp files each test under an operation on the progress page — the two
+   special sets ride along with the operation they're really made of. */
+const TESTS = [
+  { id:'add5',  name:'Adding up to 5',        tag:'+5',  mode:'add', max:5,  grp:'add', short:'up to 5'    },
+  { id:'sub5',  name:'Taking away up to 5',   tag:'−5',  mode:'sub', max:5,  grp:'sub', short:'up to 5'    },
+  { id:'ten',   name:'Making ten',            tag:'10−', set:'from10',       grp:'sub', short:'10 − ?'     },
+  { id:'dbl',   name:'Doubling',              tag:'2×',  set:'double',       grp:'add', short:'doubling'   },
+  { id:'add12', name:'Adding up to 12',       tag:'+12', mode:'add', max:12, grp:'add', short:'up to 12'   },
+  { id:'sub12', name:'Taking away up to 12',  tag:'−12', mode:'sub', max:12, grp:'sub', short:'up to 12'   },
+  { id:'mul5',  name:'Times tables up to 5',  tag:'×5',  mode:'mul', max:5,  grp:'mul', short:'up to 5'    },
+  { id:'div5',  name:'Dividing up to 5',      tag:'÷5',  mode:'div', max:5,  grp:'div', short:'up to 5'    },
+  { id:'mul12', name:'Times tables up to 12', tag:'×12', mode:'mul', max:12, grp:'mul', short:'up to 12'   },
+  { id:'div12', name:'Dividing up to 12',     tag:'÷12', mode:'div', max:12, grp:'div', short:'up to 12'   }
+];
+const TEST_BY_ID = Object.fromEntries(TESTS.map(t => [t.id, t]));
+const testPool  = t => t.set ? SETS[t.set].pool() : pool(t.mode, t.max);
+const bestOf    = id => (data.tests[id] && data.tests[id].best) || 0;
+const passed    = t => bestOf(t.id) >= PASS;
+/* the next one to pass — first still under 20, else the last */
+const nextTest  = () => TESTS.find(t => !passed(t)) || TESTS[TESTS.length-1];
 
 /* ============================================================
-   TROPHIES
+   TROPHIES — earned by rate, not by grinding
    ============================================================ */
-const totalAnswered = () => Object.values(data.facts).reduce((a,r)=>a+r.s,0);
-let answeredTotal = 0;   /* running count, refreshed on profile load */
-const learnedIn = facts => facts.reduce((a,f)=> a + (isLearned(data.facts[keyOf(f)]) ? 1 : 0), 0);
-const factGoal  = facts => () => ({ have: learnedIn(facts), need: facts.length });
-
 /* metal → [body, shadow, engraving] */
 const METAL = {
   bronze: ['#F0913F','#C25F1B','#4A2405'],
@@ -711,75 +830,31 @@ const METAL = {
   gold:   ['#FFC61E','#D48D00','#4A3200'],
   gem:    ['#8B5CF6','#5B2FBF','#F2ECFF']
 };
-const VOLUME       = [10, 50, 100, 500, 1000, 5000, 10000];
-const VOLUME_METAL = ['bronze','bronze','silver','silver','gold','gold','gem'];
-const shortNum = n => n >= 1000 ? (n/1000) + 'K' : String(n);
+const RATE_METAL = { 10:'bronze', 20:'silver', 30:'gold', 40:'gem' };
 
-const OP_TROPHIES = [
-  { op:'add', group:'Adding',       word:'Adding up to' },
-  { op:'sub', group:'Taking away',  word:'Taking away up to' },
-  { op:'mul', group:'Times tables', word:'Whole table to' },
-  { op:'div', group:'Dividing',     word:'Divided by up to' }
-];
-
-const TROPHIES = [
-  ...VOLUME.map((n,i) => ({
-    id:'ans'+n, group:'Practice', kind:'cup', metal:VOLUME_METAL[i], volume:true,
-    tag:shortNum(n), name:n.toLocaleString()+' answered',
-    goal: () => ({ have: answeredTotal, need: n })
-  })),
-  ...OP_TROPHIES.flatMap(({op, group, word}) => {
-    const tiers  = RANGES;
-    const metals = tiers.length === 2 ? ['bronze','gold'] : ['bronze','silver','gold'];
-    return tiers.map((M,i) => ({
-      id:op+M, group, kind:'cup', metal:metals[i],
-      tag:SIGN[op]+M, name:word+' '+M,
-      goal: factGoal(pool(op, M))
-    }));
-  }),
-  { id:'set_from10', group:'Special sets', kind:'medal', metal:'silver', tag:'10−', name:'Making ten',       goal: factGoal(SETS.from10.pool()) },
-  { id:'set_double', group:'Special sets', kind:'medal', metal:'bronze', tag:'2×',  name:'Doubles',          goal: factGoal(SETS.double.pool()) },
-  { id:'set_div2',   group:'Special sets', kind:'medal', metal:'bronze', tag:'÷2',  name:'Halving',          goal: factGoal(SETS.div2.pool()) },
-  { id:'set_x5',     group:'Special sets', kind:'medal', metal:'gold',   tag:'×5',  name:'Five times table', goal: factGoal(SETS.x5.pool()) },
-  { id:'set_x10',    group:'Special sets', kind:'medal', metal:'gem',    tag:'×10', name:'Ten times table',  goal: factGoal(SETS.x10.pool()) }
-];
-const GROUP_ORDER = ['Practice','Adding','Taking away','Times tables','Dividing','Special sets'];
+const TROPHIES = TESTS.flatMap(t => RATES.map(r => ({
+  id: t.id + '@' + r, group: t.name,
+  kind: r >= 30 ? 'cup' : 'medal', metal: RATE_METAL[r],
+  tag: String(r), name: t.name + ' — ' + r + ' a minute',
+  goal: () => ({ have: bestOf(t.id), need: r })
+})));
+const GROUP_ORDER = TESTS.map(t => t.name);
 
 /* ============================================================
-   CURRICULUM LADDER
-   Where a session starts: the first range trophy still unwon,
-   in teaching order — all of adding, then taking away, then
-   times tables, then dividing, each 5 → 10 → 12.
+   WARM-UP — point ordinary practice at the test you're on
    ============================================================ */
-const LADDER = OP_TROPHIES.flatMap(({op}) => RANGES.map(max => ({ mode:op, max })));
-const nextRung = () => LADDER.find(r => !data.trophies[r.mode + r.max]) || null;
-/* where the ladder says we should be right now */
-const ladderTarget = () => {
-  const r = nextRung();
-  return r ? { mode:r.mode, max:r.max, rung:r } : { mode:'mix', max:12, rung:null };
-};
-
 let startNote = '';   /* non-empty means the current selection is ladder-driven */
 
 function applyLadder(){
-  const t = ladderTarget();
-  data.set = null;
-  data.mode = t.mode;
-  data.max  = t.max;
-  if (t.rung){
-    const tr = TROPHIES.find(x => x.id === t.rung.mode + t.rung.max);
-    const g = tr.goal();
-    startNote = `Working on ${tr.name.toLowerCase()} — your next trophy. `
-              + `${g.have} of ${g.need} facts learned.`;
-  } else {
-    startNote = 'Every operation trophy is won — practicing a mix of everything.';
-  }
+  const t = nextTest();
+  if (t.set){ data.set = t.set; }
+  else      { data.set = null; data.mode = t.mode; data.max = t.max; }
+  const b = bestOf(t.id);
+  startNote = `Warming up for the ${t.name.toLowerCase()} test — `
+            + (b ? `best so far ${b} in a minute, ${PASS} to pass.`
+                 : `${PASS} in a minute to pass. Hit “Go for it!” when you're ready.`);
   save();
 }
-
-/* Jumping to the next rung is an explicit action now — see the
-   "Next trophy" button. startNote non-empty means the current
-   selection came from the ladder rather than a manual choice. */
 
 /* ---- the drawings ---------------------------------------- */
 const tagSize = t => t.length >= 4 ? 10 : t.length === 3 ? 12 : 15;
@@ -823,13 +898,12 @@ function trophySVG(t, earned){
     ${t.kind === 'medal' ? medal : cup}</svg>`;
 }
 
-/* A fact-based goal can only advance when some fact crosses into "learned",
-   so on ordinary answers we only re-check the volume trophies. */
-function checkTrophies(silent, factsChanged = true){
+/* Nothing here can move except at the end of a timed run, so this is
+   only called when a test finishes (and once on profile load). */
+function checkTrophies(silent){
   const won = [];
   for (const t of TROPHIES){
     if (data.trophies[t.id]) continue;
-    if (!t.volume && !factsChanged) continue;
     const g = t.goal();
     if (g.have >= g.need){ data.trophies[t.id] = Date.now(); won.push(t); }
   }
@@ -866,12 +940,12 @@ function renderTrophies(){
       const card = document.createElement('div');
       card.className = 'trophy ' + (got ? 'earned' : 'locked');
       card.innerHTML = trophySVG(t, !!got);
-      const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = t.name;
+      const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = t.tag + ' a minute';
       const mt = document.createElement('div'); mt.className = 'meta';
-      mt.textContent = got ? shortDate(got) : Math.min(g.have, g.need) + ' / ' + g.need;
+      mt.textContent = got ? shortDate(got) : 'best ' + g.have;
       card.append(nm, mt);
       card.title = got ? `${t.name} — won ${new Date(got).toLocaleDateString()}`
-                       : `${t.name} — ${Math.min(g.have,g.need)} of ${g.need} so far`;
+                       : `${t.name} — best run so far ${g.have}`;
       grid.appendChild(card);
     }
     host.appendChild(grid);
@@ -881,112 +955,300 @@ function renderTrophies(){
 }
 
 /* ============================================================
-   DRILL LOOP
+   DRILL ENGINE — one per surface: free practice and the timed test.
+   Both write to the same fact records, so mastery keeps building
+   whichever one you're using.
    ============================================================ */
-const entryEl = el('answer'), entryText = el('answerText'),
-      correctionEl = el('correction'), correctValEl = el('correctVal'), sheetEl = el('sheet');
-let currentPool = [], current = null, shownAt = 0, state = 'ask', typed = '';
 const MAX_DIGITS = 4, ADVANCE_MS = 150;
+
+function makeDrill(ids, opts){
+  const sheetEl      = el(ids.sheet),
+        entryEl      = el(ids.answer),
+        entryText    = el(ids.answerText),
+        correctionEl = el(ids.correction),
+        correctValEl = el(ids.correctVal),
+        aEl = el(ids.opA), bEl = el(ids.opB), signEl = el(ids.opSign);
+
+  let list = [], recent = [], current = null, shownAt = 0, state = 'idle', typed = '';
+
+  function renderEntry(){
+    entryText.textContent = typed;
+    entryEl.classList.toggle('typing', state === 'ask');
+  }
+
+  function next(){
+    if (state === 'idle' || !list.length) return;
+    current = pick(list, recent);
+    recent.push(keyOf(current));
+    if (recent.length > NO_REPEAT) recent.shift();
+    aEl.textContent = current[1];
+    bEl.textContent = current[2];
+    signEl.textContent = SIGN[current[0]];
+    signEl.style.color = OP_COLOR[current[0]];
+    typed = '';
+    state = 'ask';
+    entryEl.classList.remove('wrong','right');
+    sheetEl.classList.remove('right');
+    correctionEl.classList.add('blank');
+    renderEntry();
+    shownAt = performance.now();
+  }
+
+  function submit(){
+    if (!/^\d+$/.test(typed)) return;
+
+    const elapsed = Math.min(performance.now() - shownAt, 20000);
+    const right = Number(typed) === answer(current);
+    const k = keyOf(current);
+    const rec = data.facts[k] || (data.facts[k] = { s:0, c:0, ms:0, t:0 });
+
+    rec.s++; rec.t = Date.now();
+    if (right){
+      rec.c++;
+      rec.ms = rec.ms ? Math.round(rec.ms*0.7 + elapsed*0.3) : Math.round(elapsed);
+    }
+
+    /* paint the verdict before doing any bookkeeping — feedback first, work after */
+    if (right){
+      state = 'locked';
+      entryEl.classList.add('right');
+      sheetEl.classList.add('right');
+      renderEntry();
+      setTimeout(() => { if (state === 'locked') next(); }, ADVANCE_MS);
+    } else {
+      state = 'review';
+      entryEl.classList.add('wrong');
+      renderEntry();
+      correctValEl.textContent = '= ' + answer(current);
+      correctionEl.classList.remove('blank');
+      sheetEl.classList.remove('shake'); void sheetEl.offsetWidth; sheetEl.classList.add('shake');
+      /* the clock doesn't stop for a wrong answer, so the test moves itself on */
+      if (opts.reviewMs) setTimeout(() => { if (state === 'review') next(); }, opts.reviewMs);
+    }
+
+    save();
+    opts.onAnswer(right, elapsed);
+  }
+
+  /* one entry path for the keypad, the physical keyboard and the mouse */
+  function press(k){
+    if (state === 'idle' || state === 'locked') return;
+    if (state === 'review'){ if (k === 'go') next(); return; }
+    if (k === 'go')  { submit(); return; }
+    if (k === 'del') { typed = typed.slice(0,-1); renderEntry(); return; }
+    if (typed.length < MAX_DIGITS && !(typed === '0' && k === '0')){
+      typed = (typed === '0' ? '' : typed) + k;
+      renderEntry();
+    }
+  }
+
+  el(ids.keypad).addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    press(b.dataset.k);
+  });
+
+  return {
+    press,
+    setPool(p){ list = p; recent = []; },
+    /* run() starts fresh; halt() freezes the sheet and kills pending advances */
+    run(){ state = 'ask'; next(); },
+    halt(){ state = 'idle'; }
+  };
+}
+
+/* ---- free practice ---------------------------------------- */
 const session = { n:0, correct:0, streak:0, times:[] };
 
+const practice = makeDrill(
+  { sheet:'sheet', answer:'answer', answerText:'answerText', correction:'correction',
+    correctVal:'correctVal', opA:'opA', opB:'opB', opSign:'opSign', keypad:'keypad' },
+  { onAnswer(right, elapsed){
+      session.n++;
+      if (right){ session.correct++; session.streak++; session.times.push(elapsed); }
+      else session.streak = 0;
+      renderSession();
+    } }
+);
+
 function activePool(){
-  if (data.set === 'foryou' && data.foryou) return familyPool(data.foryou.op, data.foryou.n);
-  if (data.set && SETS[data.set])           return SETS[data.set].pool();
+  if (data.set && SETS[data.set]) return SETS[data.set].pool();
   return pool(data.mode, data.max);
 }
-function rebuild(){ currentPool = activePool(); recent.length = 0; next(); }
+function rebuild(){ practice.setPool(activePool()); practice.run(); }
 
-function renderEntry(){
-  entryText.textContent = typed;
-  entryEl.classList.toggle('typing', state === 'ask');
+/* ---- the timed test --------------------------------------- */
+const REVIEW_MS = 900;
+let currentTest = TESTS[0], testRight = 0, testEndAt = 0, tickId = 0, testLive = false;
+
+const timed = makeDrill(
+  { sheet:'tSheet', answer:'tAnswer', answerText:'tAnswerText', correction:'tCorrection',
+    correctVal:'tCorrectVal', opA:'tOpA', opB:'tOpB', opSign:'tOpSign', keypad:'tKeypad' },
+  { reviewMs: REVIEW_MS,
+    onAnswer(right){
+      if (right){ testRight++; el('tRight').textContent = testRight; }
+    } }
+);
+
+function testStage(which){
+  ['testStart','testRun','testDone'].forEach(id => el(id).classList.toggle('hidden', id !== which));
 }
 
-function next(){
-  current = pick();
-  recent.push(keyOf(current));
-  if (recent.length > NO_REPEAT) recent.shift();
-  el('opA').textContent = current[1];
-  el('opB').textContent = current[2];
-  el('opSign').textContent = SIGN[current[0]];
-  el('opSign').style.color = OP_COLOR[current[0]];
-  typed = '';
-  state = 'ask';
-  entryEl.classList.remove('wrong','right');
-  sheetEl.classList.remove('right');
-  correctionEl.classList.add('blank');
-  renderEntry();
-  shownAt = performance.now();
+/* opening the test view (or picking a different test) always resets to the start card */
+function openTest(t){
+  abortTest();
+  if (document.activeElement) document.activeElement.blur();   /* let digits reach the document */
+  currentTest = t;
+  el('testBlurb').textContent = 'One minute. Answer as many as you can — '
+    + PASS + ' right means you pass, and there are trophies at 10, 20, 30 and 40.';
+  renderTestPick();            /* keep the ticks and best scores current */
+  renderTestMeta();
+  testStage('testStart');
+  el('goForItBtn').setAttribute('aria-pressed','true');
 }
 
-function submit(){
-  if (!/^\d+$/.test(typed)) return;
+/* the strip above the sheet: which test, best so far, what's next */
+function renderTestMeta(){
+  const t = currentTest, best = bestOf(t.id);
+  el('testPick').value = t.id;
+  el('testName').textContent = t.name;
+  el('testName').style.color = t.set ? SET_COLOR[t.set] : OP_COLOR[t.mode];
+  const pill = el('testBest');
+  pill.textContent = best ? 'Best ' + best + ' a minute' : 'Not tried yet';
+  pill.classList.toggle('pass', best >= PASS);
+  el('testNote').textContent =
+    best >= 40 ? 'Every trophy on this one is yours. Beat your own best if you like.'
+  : passed(t)  ? `You've passed this one. Next trophy is at ${best < 30 ? 30 : 40} a minute.`
+  :              `Your next test. ${PASS} right inside the minute means you pass.`;
+}
 
-  const elapsed = Math.min(performance.now() - shownAt, 20000);
-  const right = Number(typed) === answer(current);
-  const k = keyOf(current);
-  const rec = data.facts[k] || (data.facts[k] = { s:0, c:0, ms:0, t:0 });
+/* the tick leads the label rather than trailing it — a long name plus a
+   score is the first thing a narrow select clips, and the mark is the
+   part you actually scan the list for */
+function renderTestPick(){
+  const sel = el('testPick');
+  sel.replaceChildren(...TESTS.map(t => {
+    const o = document.createElement('option');
+    o.value = t.id;
+    const b = bestOf(t.id);
+    o.textContent = (passed(t) ? '✓ ' : '') + t.name + (b ? ' · best ' + b : '');
+    return o;
+  }));
+  sel.value = currentTest.id;
+}
 
-  const wasLearned = isLearned(rec);
-  rec.s++; rec.t = Date.now();
-  if (right){
-    rec.c++;
-    rec.ms = rec.ms ? Math.round(rec.ms*0.7 + elapsed*0.3) : Math.round(elapsed);
-  }
-  answeredTotal++;
+function beginTest(){
+  if (document.activeElement) document.activeElement.blur();
+  testRight = 0;
+  el('tRight').textContent = '0';
+  el('tLeft').textContent = TEST_SECONDS;
+  el('timerFill').style.width = '100%';
+  el('timerBar').classList.remove('low');
+  testStage('testRun');
+  timed.setPool(testPool(currentTest));
+  testLive = true;
+  testEndAt = performance.now() + TEST_SECONDS * 1000;
+  timed.run();
+  /* an interval off the clock, not rAF — a backgrounded tab still runs out of time */
+  tickId = setInterval(tick, 100);
+}
 
-  /* paint the verdict before doing any bookkeeping — feedback first, work after */
-  if (right){
-    state = 'locked';
-    entryEl.classList.add('right');
-    sheetEl.classList.add('right');
-    renderEntry();
-    setTimeout(next, ADVANCE_MS);
-  } else {
-    state = 'review';
-    entryEl.classList.add('wrong');
-    renderEntry();
-    correctValEl.textContent = '= ' + answer(current);
-    correctionEl.classList.remove('blank');
-    sheetEl.classList.remove('shake'); void sheetEl.offsetWidth; sheetEl.classList.add('shake');
-  }
+function tick(){
+  const left = testEndAt - performance.now();
+  if (left <= 0){ endTest(); return; }
+  el('timerFill').style.width = (left / (TEST_SECONDS*1000) * 100) + '%';
+  el('tLeft').textContent = Math.ceil(left / 1000);
+  el('timerBar').classList.toggle('low', left <= 10000);
+}
 
+/* leaving the view mid-run throws the run away rather than banking a short score */
+function abortTest(){
+  if (!testLive) return;
+  clearInterval(tickId);
+  timed.halt();
+  testLive = false;
+}
+
+function endTest(){
+  clearInterval(tickId);
+  timed.halt();
+  testLive = false;
+
+  const t = currentTest, score = testRight;
+  const rec = data.tests[t.id] || (data.tests[t.id] = { best:0, runs:0, at:0 });
+  rec.runs++; rec.at = Date.now(); rec.last = score;
+  const pb = score > rec.best;
+  if (pb) rec.best = score;
   save();
-  session.n++;
-  if (right){ session.correct++; session.streak++; session.times.push(elapsed); }
-  else { session.streak = 0; }
-  renderSession();
-  checkTrophies(false, isLearned(rec) !== wasLearned);
-}
 
-/* one entry path for the keypad, the physical keyboard and the mouse */
-function press(k){
-  if (state === 'locked') return;
-  if (state === 'review'){ if (k === 'go') next(); return; }
-  if (k === 'go')  { submit(); return; }
-  if (k === 'del') { typed = typed.slice(0,-1); renderEntry(); return; }
-  if (typed.length < MAX_DIGITS && !(typed === '0' && k === '0')){
-    typed = (typed === '0' ? '' : typed) + k;
-    renderEntry();
+  const won = checkTrophies(true);
+
+  el('doneScore').textContent = score;
+  el('doneScore').classList.toggle('pass', score >= PASS);
+
+  const verdict = el('doneVerdict');
+  if (score >= PASS){
+    verdict.textContent = pb ? 'Passed — and a personal best!' : 'Passed.';
+    verdict.classList.add('pass');
+  } else {
+    verdict.textContent = pb ? 'Personal best!' : 'Not there yet.';
+    verdict.classList.remove('pass');
   }
-}
 
-el('keypad').addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b) return;
-  press(b.dataset.k);
-});
+  const nxt = nextTest();
+  el('doneNote').textContent = score >= PASS
+    ? (nxt.id === t.id ? 'Every test is passed. Keep chasing 30 and 40 a minute.'
+                       : 'Next up: ' + nxt.name + '.')
+    : `${PASS - score} more to pass. Best so far ${rec.best}.`;
+
+  const host = el('doneWon');
+  host.replaceChildren(...won.map(tr => {
+    const card = document.createElement('div');
+    card.className = 'trophy earned';
+    card.innerHTML = trophySVG(tr, true);
+    const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = tr.tag + ' a minute';
+    card.appendChild(nm);
+    return card;
+  }));
+
+  el('nextTestBtn').classList.toggle('hidden', nxt.id === t.id);
+  testStage('testDone');
+  renderTestPick();
+  renderTestMeta();
+  won.forEach(showToast);
+}
 
 /* physical keyboard: nothing is focused, so listen at the document */
 document.addEventListener('keydown', e => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   const t = e.target;
-  if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;   // gate name box, profile picker
+  if (t && /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(t.tagName)) return;   // gate name box, profile picker
   if (el('appView').classList.contains('hidden')) return;
-  if (el('drillView').classList.contains('hidden')) return;
 
-  if (/^[0-9]$/.test(e.key))                       { press(e.key); e.preventDefault(); }
-  else if (e.key === 'Backspace' || e.key === 'Delete') { press('del'); e.preventDefault(); }
-  else if (e.key === 'Enter' || e.key === '=')     { press('go');  e.preventDefault(); }
+  const onTest  = !el('testView').classList.contains('hidden');
+  const onDrill = !el('drillView').classList.contains('hidden');
+  if (!onTest && !onDrill) return;
+
+  if (onTest && !testLive){
+    if (e.key === 'Enter' || e.key === ' '){
+      (el('testDone').classList.contains('hidden') ? el('startBtn') : el('againBtn')).click();
+      e.preventDefault();
+    }
+    return;
+  }
+  const drill = onTest ? timed : practice;
+
+  if (/^[0-9]$/.test(e.key))                            { drill.press(e.key); e.preventDefault(); }
+  else if (e.key === 'Backspace' || e.key === 'Delete') { drill.press('del'); e.preventDefault(); }
+  else if (e.key === 'Enter' || e.key === '=')          { drill.press('go');  e.preventDefault(); }
 });
+
+el('goForItBtn').addEventListener('click', () => { openTest(nextTest()); showView('test'); });
+el('startBtn').addEventListener('click', beginTest);
+el('againBtn').addEventListener('click', beginTest);
+el('nextTestBtn').addEventListener('click', () => openTest(nextTest()));
+el('backToPracticeBtn').addEventListener('click', () => { applyLadder(); syncControls(); rebuild(); showView('drill'); });
+el('testPick').addEventListener('change', e => { openTest(TEST_BY_ID[e.target.value]); e.target.blur(); });
+
 function median(a){
   if (!a.length) return null;
   const s = [...a].sort((x,y)=>x-y), h = s.length>>1;
@@ -1022,85 +1284,47 @@ function renderRangeOptions(){
 /* each operation keeps its colour, now carried by the dropdown itself */
 const SEL_COLOR = { add:'var(--red)', sub:'var(--blue)', mul:'var(--green)',
                     div:'var(--purple)', mix:'var(--orange)' };
-const SET_COLOR = { from10:'var(--blue)', double:'var(--red)', div2:'var(--purple)',
-                    x5:'var(--green)', x10:'var(--green)' };
+const SET_COLOR = { from10:'var(--blue)', double:'var(--red)' };
 
 function syncControls(){
   renderRangeOptions();
-  const onSet = !!data.set;                       /* a special set overrides operation + range */
-  const modeSel = el('mode'), spSel = el('specials');
+  /* warming up for a set test — the dropdowns are the way back out */
+  const onSet = !!(data.set && SETS[data.set]);
+  const modeSel = el('mode');
 
   modeSel.value = data.mode;
-  modeSel.disabled = onSet;
   modeSel.style.color = onSet ? '' : SEL_COLOR[data.mode];
   modeSel.style.borderColor = onSet ? '' : SEL_COLOR[data.mode];
 
-  spSel.value = (data.set && data.set !== 'foryou') ? data.set : '';
-  spSel.style.color = spSel.value ? SET_COLOR[spSel.value] : '';
-  spSel.style.borderColor = spSel.value ? SET_COLOR[spSel.value] : '';
-
-  el('range').disabled = onSet;
-  el('range').title = onSet ? 'Special sets bring their own range' : '';
-
-  el('forYouBtn').setAttribute('aria-pressed', String(data.set === 'foryou'));
-  el('forYouBtn').textContent = (data.set === 'foryou' && data.foryou)
-    ? 'For you · ' + familyTag(data.foryou.op, data.foryou.n) : 'For you';
-
-  /* not a set — lit when the current selection came from the ladder */
-  const lt = ladderTarget();
-  el('nextTrophyBtn').setAttribute('aria-pressed', String(!!startNote));
-  el('nextTrophyBtn').textContent = lt.rung
-    ? 'Next trophy · ' + SIGN[lt.rung.mode] + ' ≤' + lt.rung.max
-    : 'Next trophy';
+  /* lit when the current selection came from the ladder */
+  el('warmupBtn').setAttribute('aria-pressed', String(!!startNote));
+  el('warmupBtn').textContent = 'Warm up · ' + nextTest().tag;
 
   const note = el('setNote');
-  note.classList.remove('warn');
-  if (data.set === 'foryou' && data.foryou) note.textContent = FAMILY_NOTE[data.foryou.op](data.foryou.n) + ' Tap again to re-check.';
-  else if (data.set && SETS[data.set])      note.textContent = SETS[data.set].note;
-  else                                      note.textContent = startNote;
+  note.textContent = onSet ? SETS[data.set].note + ' ' + startNote : startNote;
 }
 
-el('nextTrophyBtn').addEventListener('click', () => {
-  applyLadder();                       /* jump to the next unwon rung */
+el('warmupBtn').addEventListener('click', () => {
+  applyLadder();                       /* point practice at the test you're on */
   syncControls(); rebuild();
 });
 el('mode').addEventListener('change', e => {
   data.mode = e.target.value; data.set = null; startNote = '';
   save(); syncControls(); rebuild();
 });
-el('specials').addEventListener('change', e => {
-  data.set = e.target.value || null; startNote = '';
-  save(); syncControls(); rebuild();
-});
-el('forYouBtn').addEventListener('click', () => {
-  if (data.set === 'foryou'){                    /* pressed again — recheck the weakest row */
-    const again = weakestFamily();
-    if (again) data.foryou = { op:again.op, n:again.n };
-  } else {
-    const found = weakestFamily();
-    if (!found){
-      const note = el('setNote');
-      note.textContent = 'Not enough answers yet — practice anything for a minute and this will find your weakest row.';
-      note.classList.add('warn');
-      return;
-    }
-    data.set = 'foryou'; data.foryou = { op:found.op, n:found.n };
-  }
-  startNote = '';
-  save(); syncControls(); rebuild();
-});
 el('range').addEventListener('change', e => {
-  data.max = Number(e.target.value); startNote = '';
+  data.max = Number(e.target.value); data.set = null; startNote = '';
   save(); syncControls(); rebuild();
 });
 
-const VIEWS = { drill:'drillView', reference:'referenceView', progress:'progressView', trophies:'trophyView' };
+const VIEWS = { drill:'drillView', test:'testView', progress:'progressView', trophies:'trophyView' };
 function showView(name){
+  if (name !== 'test') abortTest();     /* a run you walk away from doesn't count */
   Object.entries(VIEWS).forEach(([k,id]) => el(id).classList.toggle('hidden', k !== name));
   [...el('nav').children].forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === name)));
-  if (name === 'progress')  renderProgress();
-  if (name === 'trophies')  renderTrophies();
-  if (name === 'reference') renderReference();
+  el('goForItBtn').setAttribute('aria-pressed', String(name === 'test'));
+  if (name === 'progress') renderProgress();
+  if (name === 'trophies') renderTrophies();
   /* drop focus from any control so digits reach the document handler */
   if (name === 'drill' && document.activeElement) document.activeElement.blur();
 }
@@ -1131,10 +1355,10 @@ function renderWho(){
 function switchTo(id){
   openProfile(id);
   session.n = session.correct = session.streak = 0; session.times.length = 0;
-  answeredTotal = totalAnswered();
   checkTrophies(true);
   applyLadder();                       /* pick the starting point before the UI syncs */
-  renderWho(); renderSession(); syncControls(); rebuild();
+  currentTest = nextTest();
+  renderWho(); renderSession(); syncControls(); renderTestPick(); rebuild();
   showView('drill');
 }
 function addProfile(name){
@@ -1157,11 +1381,11 @@ el('renameBtn').addEventListener('click', () => {
 el('resetBtn').addEventListener('click', () => {
   if (!confirm(`Erase every answer and every trophy for ${nameOf(profileId)}? This cannot be undone.`)) return;
   data = blankData();
-  answeredTotal = 0;
   store.del(NS+':'+profileId);
-  applyLadder();                       /* trophies are gone, so drop back to the first rung */
+  applyLadder();                       /* trophies are gone, so drop back to the first test */
+  currentTest = nextTest();
   session.n = session.correct = session.streak = 0; session.times.length = 0;
-  renderSession(); syncControls(); renderProgress(); rebuild();
+  renderSession(); syncControls(); renderTestPick(); renderProgress(); rebuild();
 });
 el('removeBtn').addEventListener('click', () => {
   if (!confirm(`Remove ${nameOf(profileId)} and all their progress?`)) return;
@@ -1326,11 +1550,55 @@ function buildDiv(target, M){
   target.replaceChildren(t);
 }
 
+/* the tests belonging to one operation: the two ranges, then its special set */
+function runsFor(op){
+  return TESTS.filter(t => t.grp === op).sort((a,b) => (a.max || 99) - (b.max || 99));
+}
+function statCell(v){
+  const s = document.createElement('span');
+  s.className = 'pair' + (v === null ? ' none' : '');
+  const b = document.createElement('b'); b.textContent = v === null ? '—' : v;
+  const c = document.createElement('span');
+  s.append(b, c);
+  return { node:s, cap:c };
+}
+function renderRuns(op, host){
+  el(host).replaceChildren(...runsFor(op).map(t => {
+    const rec  = data.tests[t.id];
+    const best = rec && rec.runs ? rec.best : null;
+    const last = rec && rec.last !== undefined ? rec.last : null;
+
+    const li = document.createElement('li');
+    if (best !== null && best >= PASS) li.className = 'pass';
+
+    const lbl = document.createElement('span');
+    lbl.className = 'lbl';
+    lbl.textContent = t.short;
+    const sub = document.createElement('em');
+    sub.textContent = rec && rec.runs
+      ? rec.runs + (rec.runs === 1 ? ' test' : ' tests')
+      : 'not tested';
+    lbl.appendChild(sub);
+
+    const f = statCell(best), l = statCell(last);
+    f.cap.textContent = 'fastest'; l.cap.textContent = 'last';
+    li.append(lbl, f.node, l.node);
+    li.title = rec && rec.runs
+      ? `${t.name} — fastest ${rec.best} a minute, last ${last === null ? 'unrecorded' : last}`
+        + `, ${rec.runs} run${rec.runs === 1 ? '' : 's'}, most recent ${shortDate(rec.at)}`
+      : `${t.name} — not tested yet`;
+    return li;
+  }));
+}
+
 function renderProgress(){
   buildSquare(el('gridAdd'), 'add', GRID_MAX);
   buildSub(el('gridSub'), GRID_MAX);
   buildSquare(el('gridMul'), 'mul', GRID_MAX);
   buildDiv(el('gridDiv'), GRID_MAX);
+  renderRuns('add','runsAdd'); renderRuns('sub','runsSub');
+  renderRuns('mul','runsMul'); renderRuns('div','runsDiv');
+  renderReference();               /* the answer tables live at the foot of this page */
 
   const entries  = Object.entries(data.facts).filter(([,r]) => r.s > 0);
   const answered = entries.reduce((a,[,r]) => a + r.s, 0);
